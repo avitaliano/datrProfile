@@ -1,12 +1,20 @@
 Package: datrProfile
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Title: Connects statistics and informative summaries on datasets
+Version: 0.0.0.9000
+Authors@R: person("Arnaldo", "Vitaliano", email = "vitaliano@gmail.com",
+  role = c("aut", "cre"))
+Description: Profiles datasets (collecting statistics and informative summaries 
+    about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
+    distinct values, data patterns, data/format frequencies.
 License: What license is it under?
+URL: https://github.com/avitaliano/datrProfile
+BugReports: https://github.com/avitaliano/datrProfile/issues
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
+Imports:
+    odbc
+
+
+

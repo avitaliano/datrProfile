@@ -19,4 +19,9 @@ hello <- function() {
 
 # setup test
 #devtools::use_testthat()
-#install.packages("roxygen2")
+
+# Google's R Style Guide
+# https://google.github.io/styleguide/Rguide.xml
+
+# checks code style
+lintr::lint_package()

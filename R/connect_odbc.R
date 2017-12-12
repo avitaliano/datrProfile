@@ -39,7 +39,7 @@ connectDB <- function(connection.info){
   UseMethod("connectDB", connection.info)
 }
 
-connectDB <- function(conn){
+connectDB.default <- function(conn){
 
   stop_msg <- paste("Database", class(conn), "not supported")
   stop(stop_msg)

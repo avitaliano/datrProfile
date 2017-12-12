@@ -25,3 +25,4 @@ hello <- function() {
 
 # checks code style
 lintr::lint_package()
+devtools::load_all()

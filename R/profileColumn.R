@@ -13,16 +13,17 @@ profileColumn <- function(conn.info, column, table, schema){
   schema.table <- paste0(trimws(schema), ".", table)
 
   # Count(*) from table
-  .queryCountAll <- paste("SELECT COUNT(*) AS CountTotal FROM ", schema.table)
-  count.total <- unlist(odbc::dbGetQuery(conn, .queryCountAll))
-  names(count.total) <- NULL
+  .queriCountTotal <- buildQueryCountTotal(conn.info,
+                                           schema = schema,
+                                           table = table)
+  count.total <- unlist(odbc::dbGetQuery(conn, .queriCountTotal))
 
   # Count(distinct column), min(column), max(column) from table
-  .queryColumnStats <- paste0("SELECT COUNT(DISTINCT ", column, " ), ",
-                                "MIN(", column, "), ",
-                                "MAX(", column, ") ",
-                                "FROM ", schema.table)
-
+  # .queryColumnStats <- paste0("SELECT COUNT(DISTINCT ", column, " ), ",
+  #                               "MIN(", column, "), ",
+  #                               "MAX(", column, ") ",
+  #                               "FROM ", schema.table)
+  .queryColumnStats <- buildQueryColumnStats(conn.info, schema, table, column)
   column.stats <- odbc::dbGetQuery(conn, .queryColumnStats)
 
   count.distinct <- column.stats[[1]]
@@ -33,6 +34,9 @@ profileColumn <- function(conn.info, column, table, schema){
   .queryCountNull <- paste("SELECT COUNT(*) FROM", schema.table,
                            "WHERE", column, "IS NULL" )
   count.null <- unlist(odbc::dbGetQuery(conn, .queryCountNull))
+
+  # closes connection
+  closeConnection(conn)
 
   # Percentage stats
   perc.distinct = count.distinct / count.total
@@ -45,12 +49,15 @@ profileColumn <- function(conn.info, column, table, schema){
                   count.null = count.null,
                   perc.null = perc.null,
                   min.value = min.value,
-                  max.value = max.value)
+                  max.value = max.value,
+                  stringsAsFactors=FALSE)
 
-  closeConnection(conn)
-  cat(sprintf("Ended statistics for column %s - at %s\n",
-              column,
-              Sys.time()))
+  rownames(columnProfile) <- NULL
+  print(columnProfile)
+
+  # cat(sprintf("Ended statistics for column %s - at %s\n",
+  #             column,
+  #             Sys.time()))
 
   return(columnProfile)
 }

@@ -1,10 +1,14 @@
 # runProfile
 
-conn.info <- prepareConnection(db.vendor = "sqlserver",
-                               dsn = "SQL_DEINF_QUALIDADOS_D")
-schema <- "dbo"
-table <- "PAI_PAIS_SQL"
-database <- "DEINF_QUALIDADOS_D"
+#conn.info <- prepareConnection(db.vendor = "sqlserver",
+#                               dsn = "SQL_DEINF_QUALIDADOS_D")
+conn.info <- prepareConnection(db.vendor = "teradata",
+                               dsn = "TERADATA_IDQ" )
+#, user = "vidq_teradata",
+#                               passwd = "mudar123")
+schema <- "BCBDWDES_DDM" #"dbo"
+table <- "GEOTB_PAI_PAIS" #"PAI_PAIS_SQL"
+database <- NULL #"DEINF_QUALIDADOS_D"
 
 runProfile <- function(conn.info, schema, table, is.parallel = FALSE){
 
@@ -28,12 +32,16 @@ runProfile <- function(conn.info, schema, table, is.parallel = FALSE){
 
   }else{
     # call profileColumn for each table's column
-    profile$columnProfile <- do.call(rbind,(lapply(columns.metadata$COLUMN_NAME,
+    profile$columnProfile <- do.call(rbind, lapply(columns.metadata$column_name,
                                     function(x) profileColumn(conn.info,
                                                               column = x,
                                                               table,
-                                                              schema))))
+                                                              schema)))
   }
 
   return(profile)
 }
+
+p <- NULL
+p <- runProfile(conn.info, schema, table)
+View(p$columnProfile)

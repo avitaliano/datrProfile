@@ -12,6 +12,7 @@ runProfile <- function(conn.info, schema, table, is.parallel = FALSE){
                " at ", Sys.time()))
 
   # load queries used to profile table
+  # each vendor has its own specifics
   loadQueries(conn.info)
 
   profile <- list( schema = schema,
@@ -22,7 +23,17 @@ runProfile <- function(conn.info, schema, table, is.parallel = FALSE){
 
   # Starting Column Profile
   columns.metadata <- getTableColumns(conn.info, schema, table)
-  columns.metadata
-}
 
-runProfile(conn.info, schema, table)
+  if (is.parallel){
+
+  }else{
+    # call profileColumn for each table's column
+    profile$columnProfile <- do.call(rbind,(lapply(columns.metadata$COLUMN_NAME,
+                                    function(x) profileColumn(conn.info,
+                                                              column = x,
+                                                              table,
+                                                              schema))))
+  }
+
+  return(profile)
+}

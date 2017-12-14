@@ -46,6 +46,13 @@ summary.profile <- function(x, ...){
   return(summary)
 }
 
+#' Print method
+#'
+#' @param x profile object
+#' @param ... other parameters
+#'
+#' @return printed profile
+#' @export
 print.profile <- function(x, ...){
 
   print("Data Profile")

@@ -52,3 +52,19 @@ buildQueryColumnStats.sqlserver <- function(conn.info, schema, table, column){
                  "FROM ", schema.table)
   return(query)
 }
+
+buildQueryColumnFrequency.sqlserver <- function(conn.info,
+                                      schema,
+                                      table,
+                                      column,
+                                      limit.freq.values){
+  # Concat schema and table
+  schema.table <- paste0(trimws(schema), ".", table)
+
+  query <- paste("SELECT TOP", limit.freq.values, column, "AS value",
+                 ", COUNT(*) AS freq",
+                  "FROM ", schema.table,
+                  "GROUP BY ", column,
+                  "ORDER BY freq DESC, value")
+  return(query)
+}

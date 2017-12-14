@@ -19,3 +19,7 @@ buildQueryCountNull <- function(conn.info, ...){
 buildQueryColumnStats <- function(conn.info, ...){
   UseMethod("buildQueryColumnStats", conn.info)
 }
+
+buildQueryColumnFrequency <- function(conn.info, ...){
+  UseMethod("buildQueryColumnFrequency", conn.info)
+}

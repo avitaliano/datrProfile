@@ -1,6 +1,10 @@
 # profileColumn
 
-profileColumn <- function(conn.info, column, table, schema){
+profileColumn <- function(conn.info,
+                          column,
+                          table,
+                          schema,
+                          limit.freq.values = 30){
 
   # TODO: implement filtered profile
 
@@ -35,6 +39,17 @@ profileColumn <- function(conn.info, column, table, schema){
                                           column)
   count.null <- unlist(odbc::dbGetQuery(conn, query.count.null))
 
+  # Select values and frequencies
+  # Column, count(*) from table group by column
+  query.column.freq <- buildQueryColumnFrequency(conn.info,
+                                                 schema,
+                                                 table,
+                                                 column,
+                                                 limit.freq.values)
+  column.freq <- odbc::dbGetQuery(conn, query.column.freq)
+  names(column.freq) <- c( "value", "freq")
+  column.freq$perc <- column.freq$freq / count.total
+
   # closes connection
   closeConnection(conn)
 
@@ -42,7 +57,7 @@ profileColumn <- function(conn.info, column, table, schema){
   perc.distinct = count.distinct / count.total
   perc.null = count.null / count.total
 
-  columnProfile <- data.frame(column = column,
+  columnProfile <- list(column = column,
                   count.total = unclass(count.total),
                   count.distinct = count.distinct,
                   perc.distinct = perc.distinct,
@@ -50,7 +65,7 @@ profileColumn <- function(conn.info, column, table, schema){
                   perc.null = perc.null,
                   min.value = min.value,
                   max.value = max.value,
-                  stringsAsFactors=FALSE)
+                  column.freq = column.freq)
 
   rownames(columnProfile) <- NULL
 

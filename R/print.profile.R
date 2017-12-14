@@ -1,13 +1,16 @@
 #print.profile
 
-print.profile <- function(x, ...){
 
-  print("Data Profile")
-  print(paste("Schema:", x$schema))
-  print(paste("Table:", x$table))
-  print(paste("Start time:", x$starttime))
-  print(paste("End time:", x$endtime))
+#' Shows a summary of the data profile
+#'
+#' @param x Profile object
+#' @param ...
+#'
+#' @return data.frame with summary information
+#' @export
+summary.profile <- function(x, ...){
 
+  # isolates data.frame from columnProfile list to become print-friendly
   f <- function(columnProfile){
 
     is.datetimeColumn <- function(column.datatype){
@@ -28,7 +31,6 @@ print.profile <- function(x, ...){
 
     # convert datetime columns to char
     # because of automatic cast at min and max columns
-
     if( is.datetimeColumn(class(df$min.value)) ){
       df$min.value <- format(df$min.value, "%Y-%m-%d %H:%M:%S" )
     }
@@ -41,5 +43,15 @@ print.profile <- function(x, ...){
   }
 
   summary <- do.call(rbind, lapply(x$columnProfile, f))
-  print(summary)
+  return(summary)
+}
+
+print.profile <- function(x, ...){
+
+  print("Data Profile")
+  print(paste("Schema:", x$schema))
+  print(paste("Table:", x$table))
+  print(paste("Start time:", x$starttime))
+  print(paste("End time:", x$endtime))
+  print(summary(x))
 }

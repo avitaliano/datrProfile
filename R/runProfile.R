@@ -27,6 +27,7 @@ runProfile <- function(conn.info, schema, table,
                    columnProfile = NULL,
                    starttime = Sys.time(),
                    endtime = NULL)
+  class(profile) <- "profile"
 
   # Starting Column Profile
   columns.metadata <- getTableColumns(conn.info, schema, table)

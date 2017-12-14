@@ -1,7 +1,7 @@
 Package: datrProfile
 Type: Package
 Title: Connects statistics and informative summaries on datasets
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("Arnaldo", "Vitaliano", email = "vitaliano@gmail.com",
   role = c("aut", "cre"))
 Description: Profiles datasets (collecting statistics and informative summaries 
@@ -15,5 +15,5 @@ LazyData: true
 Suggests: testthat
 Imports:
     odbc,
-    snow,
-    dplyr
+    snow
+

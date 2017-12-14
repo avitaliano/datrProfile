@@ -12,7 +12,7 @@
 # devtools::use_testthat()
 devtools::use_package("snow")
 devtools::use_package("odbc")
-devtools::use_package("dplyr")
+# devtools::use_package("dplyr")
 
 # Google's R Style Guide
 # https://google.github.io/styleguide/Rguide.xml

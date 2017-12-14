@@ -2,38 +2,38 @@
 
 profileColumn <- function(conn.info, column, table, schema){
 
-    cat(sprintf("Starting statistics for column %s - at %s\n",
+  # TODO: implement filtered profile
+
+  cat(sprintf("Starting statistics for column %s - at %s\n",
                 column,
                 Sys.time()))
 
-  # connects to database
+  # Connects to database
   conn <- connectDB(conn.info)
 
-  # Concat schema and table
-  schema.table <- paste0(trimws(schema), ".", table)
-
   # Count(*) from table
-  .queriCountTotal <- buildQueryCountTotal(conn.info,
+  query.count.total <- buildQueryCountTotal(conn.info,
                                            schema = schema,
                                            table = table)
-  count.total <- unlist(odbc::dbGetQuery(conn, .queriCountTotal))
+  count.total <- unlist(odbc::dbGetQuery(conn, query.count.total))
 
   # Count(distinct column), min(column), max(column) from table
-  # .queryColumnStats <- paste0("SELECT COUNT(DISTINCT ", column, " ), ",
-  #                               "MIN(", column, "), ",
-  #                               "MAX(", column, ") ",
-  #                               "FROM ", schema.table)
-  .queryColumnStats <- buildQueryColumnStats(conn.info, schema, table, column)
-  column.stats <- odbc::dbGetQuery(conn, .queryColumnStats)
+  query.column.stats <- buildQueryColumnStats(conn.info,
+                                              schema,
+                                              table,
+                                              column)
+  column.stats <- odbc::dbGetQuery(conn, query.column.stats)
 
   count.distinct <- column.stats[[1]]
   min.value <- column.stats[[2]]
   max.value <- column.stats[[3]]
 
   # Count(*) from table where column is null
-  .queryCountNull <- paste("SELECT COUNT(*) FROM", schema.table,
-                           "WHERE", column, "IS NULL" )
-  count.null <- unlist(odbc::dbGetQuery(conn, .queryCountNull))
+  query.count.null <- buildQueryCountNull(conn.info,
+                                          schema,
+                                          table,
+                                          column)
+  count.null <- unlist(odbc::dbGetQuery(conn, query.count.null))
 
   # closes connection
   closeConnection(conn)
@@ -53,11 +53,10 @@ profileColumn <- function(conn.info, column, table, schema){
                   stringsAsFactors=FALSE)
 
   rownames(columnProfile) <- NULL
-  print(columnProfile)
 
-  # cat(sprintf("Ended statistics for column %s - at %s\n",
-  #             column,
-  #             Sys.time()))
+  cat(sprintf("Ended statistics for column %s - at %s\n",
+              column,
+              Sys.time()))
 
   return(columnProfile)
 }

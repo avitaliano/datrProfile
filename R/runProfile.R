@@ -1,29 +1,26 @@
 # runProfile
 
-#conn.info <- prepareConnection(db.vendor = "sqlserver",
-#                               dsn = "SQL_DEINF_QUALIDADOS_D")
-conn.info <- prepareConnection(db.vendor = "teradata",
-                               dsn = "TERADATA_IDQ" )
-#, user = "vidq_teradata",
-#                               passwd = "mudar123")
-schema <- "BCBDWDES_DDM" #"dbo"
-table <- "GEOTB_PAI_PAIS" #"PAI_PAIS_SQL"
-database <- NULL #"DEINF_QUALIDADOS_D"
-
+#' Title
+#'
+#' @param conn.info
+#' @param schema
+#' @param table
+#' @param is.parallel
+#'
+#' @return
+#' @export
+#'
+#' @examples
 runProfile <- function(conn.info, schema, table, is.parallel = FALSE){
 
   print(paste0("Starting profile at table ", schema, ".", table,
                " at ", Sys.time()))
 
-  # load queries used to profile table
-  # each vendor has its own specifics
-  loadQueries(conn.info)
-
   profile <- list( schema = schema,
                    table = table,
                    columnProfile = NULL,
-                   start_exec_time = Sys.time(),
-                   end_exec_time = NULL)
+                   starttime = Sys.time(),
+                   endtime = NULL)
 
   # Starting Column Profile
   columns.metadata <- getTableColumns(conn.info, schema, table)
@@ -39,9 +36,12 @@ runProfile <- function(conn.info, schema, table, is.parallel = FALSE){
                                                               schema)))
   }
 
+  profile$endtime = Sys.time()
   return(profile)
 }
 
-p <- NULL
-p <- runProfile(conn.info, schema, table)
-View(p$columnProfile)
+c1 <- prepareConnection(db.vendor = "sqlserver",
+                        dsn = "SQL_DEINF_QUALIDADOS_D")
+c2 <- prepareConnection(db.vendor = "teradata",
+                        dsn = "TERADATA_IDQ" )
+p1 <- runProfile(c1, schema = "dbo", table = "PAI_PAIS_SQL")

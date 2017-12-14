@@ -38,11 +38,9 @@ prepareConnection <- function(db.vendor,
 }
 
 #' Connects to database using \code{\link{odbc::dbConnect}}
-#'
-#'
+#'#'
 #' @param conn.info Connection info created at \code{\link{prepareConnection()}}
 #' @return \code{connection} to database
-#' @export
 #' @examples
 #' conn.info <- prepareConnection(db.vendor = "teradata",
 #'    db.host = "192.168.0.36", user = "myuser", passwd = "mypasswd")
@@ -60,11 +58,9 @@ connectDB <- function(conn.info){
 }
 
 #' Disconnnects from database using \code{\link{odbc::dbDisconnect}}
-#'
-#'
+#'#'
 #' @param conn Connection created at \code{\link{connectDB()}}
 #' @return \code{TRUE} if succeeded at closing connection
-#' @export
 closeConnection <- function(conn){
   return(odbc::dbDisconnect(conn))
 }

@@ -1,6 +1,6 @@
 # buildQueries.teradata.R
 
-buildQueryColumnMetadata.teradata <- function(conn.info, schema, table){
+buildQueryColumnMetadata.teradata <- function(conn.info, schema, table, ...){
 
   query <-  paste("SELECT DatabaseName as table_schema,",
                   "TableName as table_name,",
@@ -24,7 +24,7 @@ buildQueryColumnMetadata.teradata <- function(conn.info, schema, table){
   return(query)
 }
 
-buildQueryCountTotal.teradata <- function(conn.info, schema, table){
+buildQueryCountTotal.teradata <- function(conn.info, schema, table, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
@@ -33,7 +33,8 @@ buildQueryCountTotal.teradata <- function(conn.info, schema, table){
   return(query)
 }
 
-buildQueryCountNull.teradata <- function(conn.info, schema, table, column){
+buildQueryCountNull.teradata <- function(conn.info, schema, table,
+                                         column, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
@@ -43,7 +44,8 @@ buildQueryCountNull.teradata <- function(conn.info, schema, table, column){
   return(query)
 }
 
-buildQueryColumnStats.teradata <- function(conn.info, schema, table, column){
+buildQueryColumnStats.teradata <- function(conn.info, schema, table,
+                                           column, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
@@ -60,7 +62,8 @@ buildQueryColumnFrequency.teradata <- function(conn.info,
                                                 schema,
                                                 table,
                                                 column,
-                                                limit.freq.values){
+                                                limit.freq.values,
+                                               ...){
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 

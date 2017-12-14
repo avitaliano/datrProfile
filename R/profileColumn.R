@@ -1,5 +1,4 @@
-# profileColumn
-
+# Profile the column from the schema.table
 profileColumn <- function(conn.info,
                           column,
                           table,
@@ -54,8 +53,8 @@ profileColumn <- function(conn.info,
   closeConnection(conn)
 
   # Percentage stats
-  perc.distinct = count.distinct / count.total
-  perc.null = count.null / count.total
+  perc.distinct <- count.distinct / count.total
+  perc.null <- count.null / count.total
 
   columnProfile <- list(column = column,
                   count.total = unclass(count.total),

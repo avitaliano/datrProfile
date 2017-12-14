@@ -1,6 +1,7 @@
 # buildQueries.sqlserver
 
-buildQueryColumnMetadata.sqlserver <- function(conn.info, schema, table, database){
+buildQueryColumnMetadata.sqlserver <- function(conn.info, schema, table,
+                                               database, ...){
 
   query <- paste("SELECT TABLE_SCHEMA as table_schema,",
                  "TABLE_NAME as table_name,",
@@ -21,7 +22,7 @@ buildQueryColumnMetadata.sqlserver <- function(conn.info, schema, table, databas
   return(query)
 }
 
-buildQueryCountTotal.sqlserver <- function(conn.info, schema, table){
+buildQueryCountTotal.sqlserver <- function(conn.info, schema, table, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
@@ -30,7 +31,8 @@ buildQueryCountTotal.sqlserver <- function(conn.info, schema, table){
   return(query)
 }
 
-buildQueryCountNull.sqlserver <- function(conn.info, schema, table, column){
+buildQueryCountNull.sqlserver <- function(conn.info, schema, table,
+                                          column, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
@@ -40,7 +42,8 @@ buildQueryCountNull.sqlserver <- function(conn.info, schema, table, column){
   return(query)
 }
 
-buildQueryColumnStats.sqlserver <- function(conn.info, schema, table, column){
+buildQueryColumnStats.sqlserver <- function(conn.info, schema, table,
+                                            column, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
@@ -57,7 +60,7 @@ buildQueryColumnFrequency.sqlserver <- function(conn.info,
                                       schema,
                                       table,
                                       column,
-                                      limit.freq.values){
+                                      limit.freq.values, ...){
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 

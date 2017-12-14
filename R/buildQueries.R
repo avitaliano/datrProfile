@@ -1,6 +1,4 @@
-# buildQueries
-
-# Select column's metadata from db catalog
+# Builds SQL query to select columns metadata from database catalog.
 buildQueryColumnMetadata <- function(conn.info, ...){
   UseMethod("buildQueryColumnMetadata", conn.info)
 }

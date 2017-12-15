@@ -50,7 +50,6 @@ prepareConnection <- function(db.vendor,
 #' conn <- connectDB(conn.info)
 connectDB <- function(conn.info){
 
-  # TODO: handle encoding issues
   conn <- odbc::dbConnect(conn.info$odbc.driver,
                           dsn = conn.info$dsn,
                           uid = conn.info$user,

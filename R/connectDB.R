@@ -7,6 +7,7 @@
 #' @param odbc.driver ODBC driver used to connect to database
 #' @param db.host Database hostname
 #' @param db.name Database name
+#' @param db.encoding Database encoding
 #' @param dsn Data source name
 #' @param user Username to connect to database
 #' @param passwd Password to connect to database
@@ -18,6 +19,7 @@ prepareConnection <- function(db.vendor,
                               odbc.driver = odbc::odbc(),
                               db.host = NULL,
                               db.name = NULL,
+                              db.encoding = "",
                               dsn = NULL,
                               user = NULL,
                               passwd = NULL){
@@ -26,11 +28,12 @@ prepareConnection <- function(db.vendor,
 
   # create list with all arguments
   conn.info <- list(odbc.driver = odbc.driver,
-                          db.host = db.host,
-                          db.name = db.name,
-                          dsn = dsn,
-                          user = user,
-                          passwd = passwd)
+                    db.host = db.host,
+                    db.name = db.name,
+                    db.encoding = db.encoding,
+                    dsn = dsn,
+                    user = user,
+                    passwd = passwd)
 
   # vendor is used as class to call correct S3 method.
   class(conn.info) <- db.vendor
@@ -42,7 +45,7 @@ prepareConnection <- function(db.vendor,
 #' @param conn.info Connection info created at \code{\link{prepareConnection()}}
 #' @return \code{connection} to database
 #' @examples
-#' conn.info <- prepareConnection(db.vendor = "teradata",
+#' conn.info <- prepareConnection(db.vendor = "teradata", db.encoding = "latin1"
 #'    db.host = "192.168.0.36", user = "myuser", passwd = "mypasswd")
 #' conn <- connectDB(conn.info)
 connectDB <- function(conn.info){
@@ -53,7 +56,8 @@ connectDB <- function(conn.info){
                           uid = conn.info$user,
                           pwd = conn.info$passwd,
                           database = conn.info$db.name,
-                          host = conn.info$db.host)
+                          host = conn.info$db.host,
+                          encoding = conn.info$db.encoding)
   return(conn)
 }
 

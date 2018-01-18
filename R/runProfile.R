@@ -32,7 +32,8 @@ runProfile <- function(conn.info, schema = NULL, table,
   # Starting Column Profile
   columns.metadata <- getTableColumns(conn.info, schema, table)
 
-  if (is.parallel){
+  # TODO: issue, parallel not working with sqlite. temporary disabled.
+  if ( is.parallel && class(conn.info) != "sqlite" ){
     # inicializes cluster
     cluster <- snow::makeSOCKcluster(count.nodes)
 
@@ -53,13 +54,14 @@ runProfile <- function(conn.info, schema = NULL, table,
                              "buildQueryCountTotal",
                              "buildQueryCountNull",
                              "buildQueryColumnStats",
-                             "buildQueryColumnFrequency",
-                             "buildQueryColumnMetadata.sqlserver",
-                             "buildQueryCountTotal.sqlserver",
-                             "buildQueryCountNull.sqlserver",
-                             "buildQueryColumnStats.sqlserver",
-                             "buildQueryColumnFrequency.sqlserver"
-                             )
+                             "buildQueryColumnFrequency")
+                             # TODO: observe if it's not necessary S3 exports,
+                             # "buildQueryColumnMetadata.sqlserver",
+                             # "buildQueryCountTotal.sqlserver",
+                             # "buildQueryCountNull.sqlserver",
+                             # "buildQueryColumnStats.sqlserver",
+                             # "buildQueryColumnFrequency.sqlserver"
+                             # )
     snow::clusterExport(cluster, local.functions)
 
     # call profileColumn for each table's column

@@ -1,5 +1,9 @@
 # buildQueries.sqlite
 
+escapeSQLite <- function(text){
+  return(paste0("`", text, "`"))
+}
+
 buildQueryColumnMetadata.sqlite <- function(conn.info,
                                             schema = NULL,
                                             table,
@@ -21,6 +25,7 @@ buildQueryColumnMetadata.sqlite <- function(conn.info,
 buildQueryCountTotal.sqlite <- function(conn.info, schema, table, ...){
 
   query <- paste("SELECT COUNT(*) FROM ", table)
+
   return(query)
 }
 
@@ -28,21 +33,20 @@ buildQueryCountNull.sqlite <- function(conn.info, schema, table,
                                           column, ...){
 
   query <- paste("SELECT COUNT(*) FROM", table,
-                 "WHERE", column, "IS NULL" )
+                 "WHERE", escapeSQLite(column), "IS NULL" )
+
   return(query)
 }
 
 buildQueryColumnStats.sqlite <- function(conn.info, schema, table,
                                             column, ...){
 
-  # Concat schema and table
-  schema.table <- paste0(trimws(schema), ".", table)
-
   # Count(distinct column), min(column), max(column) from table
-  query <- paste("SELECT COUNT(DISTINCT ", column, " ),",
-                 "MIN(", column, "),",
-                 "MAX(", column, ")",
-                 "FROM ", schema.table)
+  query <- paste("SELECT COUNT(DISTINCT ", escapeSQLite(column), " ),",
+                 "MIN(", escapeSQLite(column), "),",
+                 "MAX(", escapeSQLite(column), ")",
+                 "FROM ", table)
+
   return(query)
 }
 
@@ -51,11 +55,12 @@ buildQueryColumnFrequency.sqlite <- function(conn.info,
                                                 table,
                                                 column,
                                                 limit.freq.values, ...){
-  query <- paste("SELECT", column, "AS value,",
+  query <- paste("SELECT", escapeSQLite(column), "AS value,",
                  "COUNT(*) AS freq",
                  "FROM ", table,
-                 "GROUP BY ", column,
+                 "GROUP BY ", escapeSQLite(column),
                  "ORDER BY freq DESC, value",
                  "LIMIT", limit.freq.values)
+
   return(query)
 }

@@ -34,12 +34,15 @@ runProfile <- function(conn.info, schema = NULL, table,
 
   # TODO: issue, parallel not working with sqlite. temporary disabled.
   if ( is.parallel && class(conn.info) != "sqlite" ){
-    # inicializes cluster
+    # initializes cluster
     cluster <- snow::makeSOCKcluster(count.nodes)
 
-    # initialize loging
+    # initializes loging
     snow::clusterApply(cluster, seq_along(cluster), function(i) {
-      zz <- file(sprintf("parallel-runProfile-%d.Rout", i), open = "wt")
+      if (!dir.exists("log"))
+        dir.create("log")
+      zz <- file(file.path("log", sprintf("parallel-runProfile-%d.Rout", i)),
+                 open = "wt")
       sink(zz)
       sink(zz, type = "message")
     })

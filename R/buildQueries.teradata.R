@@ -72,6 +72,5 @@ buildQueryColumnFrequency.teradata <- function(conn.info,
                  "FROM ", schema.table,
                  "GROUP BY ", column,
                  "ORDER BY freq DESC, columnValue")
-  print(query)
   return(query)
 }

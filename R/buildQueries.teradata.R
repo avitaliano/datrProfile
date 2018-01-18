@@ -67,10 +67,11 @@ buildQueryColumnFrequency.teradata <- function(conn.info,
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 
-  query <- paste("SELECT TOP", limit.freq.values, column, "AS value",
+  query <- paste("SELECT TOP", limit.freq.values, column, "AS columnValue",
                  ", COUNT(*) AS freq",
                  "FROM ", schema.table,
                  "GROUP BY ", column,
-                 "ORDER BY freq DESC, value")
+                 "ORDER BY freq DESC, columnValue")
+  print(query)
   return(query)
 }

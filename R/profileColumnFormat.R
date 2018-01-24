@@ -10,9 +10,6 @@ profileColumnFormat <- function(conn.info,
   # does not get column format stats for datetime columns
   if( ! is.datetimeColumn(column.datatype) ){
 
-    # Connects to database
-    conn <- connectDB(conn.info)
-
     # builds query
     query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,
                                                                 column,
@@ -21,6 +18,9 @@ profileColumnFormat <- function(conn.info,
 
     # only implemented in teradata database.
     if ( ! is.na(query.format.freq)) {
+
+      # Connects to database
+      conn <- connectDB(conn.info)
 
       format.freq <- odbc::dbGetQuery(conn, query.format.freq)
       names(format.freq) <- c( "format", "freq")

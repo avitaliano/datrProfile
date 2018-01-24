@@ -18,17 +18,26 @@ summary.profile <- function(x, ...){
     columnProfile$format.freq <- NULL
 
     # to data frame
-    df <- as.data.frame(columnProfile)
+    df <- as.data.frame(columnProfile, stringsAsFactors=FALSE)
     rownames(df) <- NULL
 
     # convert datetime columns to char
     # because of automatic cast at min and max columns
-    if( is.datetimeColumn(class(df$min.value)) ){
+    if ( is.datetimeColumn(class(df$min.value)) ) {
       df$min.value <- format(df$min.value, "%Y-%m-%d %H:%M:%S" )
     }
 
-    if( is.datetimeColumn(class(df$max.value)) ){
+    if ( is.datetimeColumn(class(df$max.value)) ) {
       df$max.value <- format(df$max.value, "%Y-%m-%d %H:%M:%S" )
+    }
+
+    # convert bigint columns to char
+    if ( is.longIntColumn(class(df$min.value)) ) {
+      df$min.value <- as.character(df$min.value)
+    }
+
+    if ( is.longIntColumn(class(df$max.value)) ) {
+      df$max.value <- as.character(df$max.value)
     }
 
     return(df)

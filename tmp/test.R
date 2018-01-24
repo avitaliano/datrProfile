@@ -1,16 +1,22 @@
-
-c2 <- prepareConnection(db.vendor = "teradata",
-                        dsn = "TERADATA_IDQ" )
-p2 <- runProfile(c2, schema = "BCBDWDES_DDM", table = "GEOTB_MUN_MUNICIPIO")
-
-
+# test sqlserver
 c1 <- prepareConnection(db.vendor = "sqlserver",
                         dsn = "SQL_BCBASE_DP", db.encoding = "latin1")
 p1 <- runProfile(c1, schema = "bcb", table = "GEO_MUN_MUNICIPIO")
 
-p1
-p2
+# test teradata
+c2 <- prepareConnection(db.vendor = "teradata", db.encoding = "latin1",
+                        dsn = "TERADATA_IDQ" )
+p2 <- runProfile(c2, schema = "BCBDWDES_DDM", table = "GEOTB_MUN_MUNICIPIO")
 
+p2$columnProfile[[1]]$format.freq %>% View
+
+# test sqlite
+c3 <- prepareConnection(db.vendor = "sqlite", odbc.driver = RSQLite::SQLite(),
+                        db.name = "mydb.sqlite")
+p3 <- runProfile(c3, table = "iris", is.parallel = F)
+p3
+p4 <- runProfile(c3, table = "mtcars", is.parallel = T)
+p4
 
 # format profile
 str(c)
@@ -27,17 +33,4 @@ f <- function(x){
   x <- stringr::str_replace_all(x, "[:punct:]", "S")
  return(x)
 }
-
-library(RSQLite)
-#con <- odbc::dbConnect(RSQLite::SQLite(), ":memory:")
-con <- odbc::dbConnect(RSQLite::SQLite(), "mydb.sqlite")
-odbc::dbListTables(con)
-odbc::dbWriteTable(con, "mtcars", mtcars)
-odbc::dbWriteTable(con, "iris", iris)
-odbc::dbGetQuery(con, "SELECT hp as value, count(*) as freq from mtcars group by hp order by freq desc limit 4")
-odbc::dbGetQuery(con, "select *  from pragma_table_info('iris')")
-odbc::dbGetQuery(con, "SELECT '' as table_schema, 'iris' as table_name, name as column_name, type as column_datatype, 0 AS column_length, 0 AS column_precision FROM pragma_table_info('iris')")
-
-p <- runProfile(con, table = )
-
 

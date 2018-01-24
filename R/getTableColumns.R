@@ -40,3 +40,9 @@ is.numericColumn <- function(column.datatype){
   return(any(toupper(column.datatype) %in% numeric_datatypes))
 
 }
+
+is.longIntColumn <- function(column.datatype){
+  longInt_datatypes <- c("BIGINT", "INTEGER64")
+  return(any(toupper(column.datatype) %in% longInt_datatypes))
+}
+

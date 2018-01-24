@@ -19,7 +19,7 @@ profileColumn <- function(conn.info,
   query.count.total <- buildQueryCountTotal(conn.info,
                                            schema = schema,
                                            table = table)
-  count.total <- unlist(odbc::dbGetQuery(conn, query.count.total))
+  count.total <- unlist(odbc::dbGetQuery(conn, query.count.total))[[1]]
 
   # Count(distinct column), min(column), max(column) from table
   query.column.stats <- buildQueryColumnStats(conn.info,
@@ -37,7 +37,7 @@ profileColumn <- function(conn.info,
                                           schema,
                                           table,
                                           column)
-  count.null <- unlist(odbc::dbGetQuery(conn, query.count.null))
+  count.null <- unlist(odbc::dbGetQuery(conn, query.count.null))[[1]]
 
   # Select values and frequencies
   # Column, count(*) from table group by column

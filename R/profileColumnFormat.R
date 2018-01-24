@@ -1,19 +1,11 @@
-# profileColumnFormat
-
-is.datetimeColumn <- function(column.datatype){
-
-  datetime_datatypes <- c("TIMESTAMP", "DATE", "TIME", "DATETIME",
-                          "POSIXT", "POSIXCT")
-  return(any(toupper(column.datatype) %in% datetime_datatypes))
-}
-
 # Profile the format of the column from the schema.table
 profileColumnFormat <- function(conn.info,
                           column,
                           column.datatype,
                           schema,
                           table,
-                          count.total){
+                          count.total,
+                          show.percentage = 0.01){
 
   # does not get column format stats for datetime columns
   if( ! is.datetimeColumn(column.datatype) ){
@@ -37,6 +29,19 @@ profileColumnFormat <- function(conn.info,
 
       # calculate percentages
       format.freq$perc = format.freq$freq / count.total
+
+      # only shows values with percentage is greater then (or equal)
+      # show.percentage arg
+      others <- format.freq[format.freq$perc < show.percentage,]
+
+      if ( nrow(others) > 0 )
+        format.freq <- rbind(
+          format.freq[format.freq$perc >= show.percentage,],
+          dplyr::summarize(others, format = "others",
+                           freq = sum(freq),
+                           perc = sum(perc))
+          )
+
       return(format.freq)
 
     } else {

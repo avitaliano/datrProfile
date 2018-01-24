@@ -91,5 +91,7 @@ runProfile <- function(conn.info, schema = NULL, table,
   }
 
   profile$endtime = Sys.time()
+  print(paste0("Profile at table ", schema, ".", table,
+               " ended at ", profile$endtime))
   return(profile)
 }

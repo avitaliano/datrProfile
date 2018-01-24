@@ -21,3 +21,7 @@ buildQueryColumnStats <- function(conn.info, ...){
 buildQueryColumnFrequency <- function(conn.info, ...){
   UseMethod("buildQueryColumnFrequency", conn.info)
 }
+
+buildQueryProfileColumnFormatFrequency <- function(conn.info, ...){
+  UseMethod("buildQueryProfileColumnFormatFrequency", conn.info)
+}

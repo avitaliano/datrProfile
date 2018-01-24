@@ -72,18 +72,22 @@ runProfile <- function(conn.info, schema = NULL, table,
                                              columns.metadata$column_name,
                                              function(x) profileColumn(
                                                conn.info,
-                                               column = x,
+                                               schema,
                                                table,
-                                               schema))
+                                               column = x,
+                                               getColumnDatatype(x,
+                                                                 columns.metadata)))
 
   snow::stopCluster(cluster)
   } else{
     # call profileColumn for each table's column
     profile$columnProfile <- lapply(columns.metadata$column_name,
                                     function(x) profileColumn(conn.info,
-                                                              column = x,
+                                                              schema,
                                                               table,
-                                                              schema))
+                                                              column = x,
+                                                              getColumnDatatype(x,
+                                                                                columns.metadata)))
   }
 
   profile$endtime = Sys.time()

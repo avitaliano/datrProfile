@@ -74,3 +74,27 @@ buildQueryColumnFrequency.teradata <- function(conn.info,
                  "ORDER BY freq DESC, columnValue")
   return(query)
 }
+
+buildQueryProfileColumnFormatFrequency.teradata <- function(conn.info,
+                                                            column,
+                                                            table,
+                                                            schema,
+                                                            ...){
+
+  # Concat schema and table
+  schema.table <- paste0(trimws(schema), ".", table)
+
+  query <- paste0("SELECT REGEXP_REPLACE( REGEXP_REPLACE( REGEXP_REPLACE(TRIM(",
+                  column,
+                  "), '[A-Za-z]', 'X'),",
+                  "'[ ]', 'b'), '[0-9]', '9') AS COLUMN_FORMAT,",
+                  "COUNT(*) AS FREQ",
+                  " FROM ", schema.table,
+                  " GROUP BY REGEXP_REPLACE( ",
+                  "REGEXP_REPLACE( REGEXP_REPLACE(TRIM(",
+                  column, "), '[A-Za-z]', 'X'), '[ ]', 'b'), '[0-9]', '9')",
+                  " ORDER BY FREQ DESC"
+  )
+
+  return(query)
+}

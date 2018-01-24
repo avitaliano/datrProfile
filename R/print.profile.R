@@ -13,14 +13,6 @@ summary.profile <- function(x, ...){
   # isolates data.frame from columnProfile list to become print-friendly
   f <- function(columnProfile){
 
-    is.datetimeColumn <- function(column.datatype){
-
-      datetime_datatypes <- c("TIMESTAMP", "DATE", "TIME", "DATETIME",
-                              "POSIXT", "POSIXCT")
-      return(any(toupper(column.datatype) %in% datetime_datatypes))
-
-    }
-
     # remove column.freq and format.freq
     columnProfile$column.freq <- NULL
     columnProfile$format.freq <- NULL

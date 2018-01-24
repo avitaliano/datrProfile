@@ -1,8 +1,9 @@
 # Profile the column from the schema.table
 profileColumn <- function(conn.info,
-                          column,
-                          table,
                           schema,
+                          table,
+                          column,
+                          column.datatype,
                           limit.freq.values = 30){
 
   # TODO: implement filtered profile
@@ -49,6 +50,14 @@ profileColumn <- function(conn.info,
   names(column.freq) <- c( "value", "freq")
   column.freq$perc <- column.freq$freq / count.total
 
+  # call profileColumnFormatFrequency
+  format.freq <- profileColumnFormat(conn.info,
+                                     column,
+                                     column.datatype,
+                                     schema,
+                                     table,
+                                     count.total)
+
   # closes connection
   closeConnection(conn)
 
@@ -64,7 +73,8 @@ profileColumn <- function(conn.info,
                   perc.null = perc.null,
                   min.value = min.value,
                   max.value = max.value,
-                  column.freq = column.freq)
+                  column.freq = column.freq,
+                  format.freq = format.freq)
 
   rownames(columnProfile) <- NULL
 

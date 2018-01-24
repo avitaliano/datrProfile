@@ -71,3 +71,11 @@ buildQueryColumnFrequency.sqlserver <- function(conn.info,
                   "ORDER BY freq DESC, value")
   return(query)
 }
+
+buildQueryProfileColumnFormatFrequency.sqlserver <- function(conn.info,
+                                                             column,
+                                                             table,
+                                                             schema,
+                                                             ...){
+  return(NA)
+}

@@ -64,3 +64,12 @@ buildQueryColumnFrequency.sqlite <- function(conn.info,
 
   return(query)
 }
+
+buildQueryProfileColumnFormatFrequency.sqlite <- function(conn.info,
+                                                          column,
+                                                          table,
+                                                          schema,
+                                                          ...){
+  return(NA)
+}
+

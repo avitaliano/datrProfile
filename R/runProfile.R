@@ -17,7 +17,8 @@
 #' p <- runProfile(conn.info, "table_schema", "my_table")
 runProfile <- function(conn.info, schema = NULL, table,
                        is.parallel = TRUE,
-                       count.nodes = 5){
+                       count.nodes = 5,
+                       query.filter = NA){
 
   print(paste0("Starting profile at table ", schema, ".", table,
                " at ", Sys.time()))
@@ -71,23 +72,26 @@ runProfile <- function(conn.info, schema = NULL, table,
     profile$columnProfile <- snow::parLapply(cluster,
                                              columns.metadata$column_name,
                                              function(x) profileColumn(
-                                               conn.info,
-                                               schema,
-                                               table,
+                                               conn.info = conn.info,
+                                               schema = schema,
+                                               table = table,
                                                column = x,
                                                getColumnDatatype(x,
-                                                                 columns.metadata)))
+                                                                 columns.metadata),
+                                             query.filter = query.filter))
 
   snow::stopCluster(cluster)
   } else{
     # call profileColumn for each table's column
     profile$columnProfile <- lapply(columns.metadata$column_name,
-                                    function(x) profileColumn(conn.info,
-                                                              schema,
-                                                              table,
-                                                              column = x,
-                                                              getColumnDatatype(x,
-                                                                                columns.metadata)))
+                                    function(x) profileColumn(
+                                      conn.info = conn.info,
+                                      schema = schema,
+                                      table = table,
+                                      column = x,
+                                      column.datatype = getColumnDatatype(x,
+                                                                          columns.metadata),
+                                      query.filter = query.filter))
   }
 
   profile$endtime = Sys.time()

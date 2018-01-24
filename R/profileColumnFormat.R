@@ -5,16 +5,19 @@ profileColumnFormat <- function(conn.info,
                           schema,
                           table,
                           count.total,
+                          query.filter,
                           show.percentage = 0.01){
 
   # does not get column format stats for datetime columns
   if( ! is.datetimeColumn(column.datatype) ){
 
     # builds query
-    query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,
-                                                                column,
-                                                                table,
-                                                                schema)
+    query.format.freq <- appendWhereClause(
+      buildQueryProfileColumnFormatFrequency(conn.info,
+                                             column,
+                                             table,
+                                             schema),
+      query.filter)
 
     # only implemented in teradata database.
     if ( ! is.na(query.format.freq)) {

@@ -12,12 +12,11 @@ profileColumnFormat <- function(conn.info,
   if( ! is.datetimeColumn(column.datatype) ){
 
     # builds query
-    query.format.freq <- appendWhereClause(
-      buildQueryProfileColumnFormatFrequency(conn.info,
-                                             column,
-                                             table,
-                                             schema),
-      query.filter)
+    query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,
+                                                                column,
+                                                                table,
+                                                                schema,
+                                                                query.filter)
 
     # only implemented in teradata database.
     if ( ! is.na(query.format.freq)) {

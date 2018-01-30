@@ -1,19 +1,22 @@
 # test sqlserver
 c1 <- prepareConnection(db.vendor = "sqlserver",
                         dsn = "SQL_BCBASE_DP", db.encoding = "latin1")
-p1 <- runProfile(c1, schema = "bcb", table = "GEO_MUN_MUNICIPIO")
+getTableColumns(c1, "bcb", "GEO_MUN_MUNICIPIO")
+p1 <- runProfile(c1, schema = "bcb", table = "GEO_MUN_MUNICIPIO",
+                 query.filter = "MUN_IB_MUNICIPIO_BRASIL = 1", is.parallel = F)
 
 # test teradata
 c2 <- prepareConnection(db.vendor = "teradata", db.encoding = "latin1",
                         dsn = "TERADATA_IDQ" )
-p2 <- runProfile(c2, schema = "BCBDWDES_DDM", table = "GEOTB_MUN_MUNICIPIO")
+p2 <- runProfile(c2, schema = "BCBDWDES_DDM", table = "GEOTB_MUN_MUNICIPIO",
+                 query.filter = "MUN_IB_MUNICIPIO_BRASIL = 1", is.parallel = F)
 
 p2$columnProfile[[1]]$format.freq %>% View
 
 # test sqlite
 c3 <- prepareConnection(db.vendor = "sqlite", odbc.driver = RSQLite::SQLite(),
                         db.name = "mydb.sqlite")
-p3 <- runProfile(c3, table = "iris", is.parallel = F)
+p3 <- runProfile(c3, table = "iris", is.parallel = F, query.filter = "Species = 'setosa'")
 p3
 p4 <- runProfile(c3, table = "mtcars", is.parallel = T)
 p4

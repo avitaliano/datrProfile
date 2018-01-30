@@ -22,45 +22,74 @@ buildQueryColumnMetadata.sqlite <- function(conn.info,
   return(query)
 }
 
-buildQueryCountTotal.sqlite <- function(conn.info, schema, table, ...){
-
-  query <- paste("SELECT COUNT(*) FROM ", table)
-
+buildQueryCountTotal.sqlite <- function(conn.info, schema, table,
+                                        query.filter, ...){
+  if (is.na(query.filter)){
+    query <- paste("SELECT COUNT(*) FROM ", table)
+  } else {
+    query <- paste("SELECT COUNT(*) FROM ", table,
+                   "WHERE", query.filter)
+  }
   return(query)
 }
 
 buildQueryCountNull.sqlite <- function(conn.info, schema, table,
-                                          column, ...){
+                                       column, query.filter,  ...){
 
-  query <- paste("SELECT COUNT(*) FROM", table,
-                 "WHERE", escapeSQLite(column), "IS NULL" )
-
+  if (is.na(query.filter)){
+    query <- paste("SELECT COUNT(*) FROM", table,
+                   "WHERE", escapeSQLite(column), "IS NULL" )
+  } else {
+    query <- paste("SELECT COUNT(*) FROM", table,
+                   "WHERE", escapeSQLite(column), "IS NULL",
+                   "AND", query.filter)
+  }
   return(query)
 }
 
 buildQueryColumnStats.sqlite <- function(conn.info, schema, table,
-                                            column, ...){
+                                         column, query.filter, ...){
 
   # Count(distinct column), min(column), max(column) from table
-  query <- paste("SELECT COUNT(DISTINCT ", escapeSQLite(column), " ),",
-                 "MIN(", escapeSQLite(column), "),",
-                 "MAX(", escapeSQLite(column), ")",
-                 "FROM ", table)
+  if (is.na(query.filter)){
+    query <- paste("SELECT COUNT(DISTINCT ", escapeSQLite(column), " ),",
+                   "MIN(", escapeSQLite(column), "),",
+                   "MAX(", escapeSQLite(column), ")",
+                   "FROM ", table)
+  } else {
+    query <- paste("SELECT COUNT(DISTINCT ", escapeSQLite(column), " ),",
+                   "MIN(", escapeSQLite(column), "),",
+                   "MAX(", escapeSQLite(column), ")",
+                   "FROM ", table,
+                   "WHERE", query.filter)
+  }
 
   return(query)
 }
 
 buildQueryColumnFrequency.sqlite <- function(conn.info,
-                                                schema,
-                                                table,
-                                                column,
-                                                limit.freq.values, ...){
-  query <- paste("SELECT", escapeSQLite(column), "AS value,",
-                 "COUNT(*) AS freq",
-                 "FROM ", table,
-                 "GROUP BY ", escapeSQLite(column),
-                 "ORDER BY freq DESC, value",
-                 "LIMIT", limit.freq.values)
+                                             schema,
+                                             table,
+                                             column,
+                                             limit.freq.values,
+                                             query.filter, ...){
+
+  if (is.na(query.filter)){
+    query <- paste("SELECT", escapeSQLite(column), "AS value,",
+                   "COUNT(*) AS freq",
+                   "FROM ", table,
+                   "GROUP BY ", escapeSQLite(column),
+                   "ORDER BY freq DESC, value",
+                   "LIMIT", limit.freq.values)
+  } else {
+    query <- paste("SELECT", escapeSQLite(column), "AS value,",
+                   "COUNT(*) AS freq",
+                   "FROM ", table,
+                   "WHERE", query.filter,
+                   "GROUP BY ", escapeSQLite(column),
+                   "ORDER BY freq DESC, value",
+                   "LIMIT", limit.freq.values)
+  }
 
   return(query)
 }

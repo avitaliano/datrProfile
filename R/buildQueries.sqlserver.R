@@ -22,37 +22,57 @@ buildQueryColumnMetadata.sqlserver <- function(conn.info, schema, table,
   return(query)
 }
 
-buildQueryCountTotal.sqlserver <- function(conn.info, schema, table, ...){
+buildQueryCountTotal.sqlserver <- function(conn.info, schema,
+                                           table, query.filter, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 
-  query <- paste("SELECT COUNT(*) FROM ", schema.table)
+  if (is.na(query.filter)){
+    query <- paste("SELECT COUNT(*) FROM ", schema.table)
+  } else{
+    query <- paste("SELECT COUNT(*) FROM ", schema.table,
+                   "WHERE", query.filter)
+  }
   return(query)
 }
 
 buildQueryCountNull.sqlserver <- function(conn.info, schema, table,
-                                          column, ...){
+                                          column, query.filter, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 
-  query <- paste("SELECT COUNT(*) FROM", schema.table,
-                 "WHERE", column, "IS NULL" )
+  if (is.na(query.filter)){
+    query <- paste("SELECT COUNT(*) FROM", schema.table,
+                   "WHERE", column, "IS NULL" )
+  } else {
+    query <- paste("SELECT COUNT(*) FROM", schema.table,
+                 "WHERE", column, "IS NULL",
+                 "AND", query.filter)
+  }
   return(query)
 }
 
 buildQueryColumnStats.sqlserver <- function(conn.info, schema, table,
-                                            column, ...){
+                                            column, query.filter, ...){
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 
   # Count(distinct column), min(column), max(column) from table
-  query <- paste("SELECT COUNT(DISTINCT ", column, " ),",
-                 "MIN(", column, "),",
-                 "MAX(", column, ")",
-                 "FROM ", schema.table)
+  if (is.na(query.filter)){
+    query <- paste("SELECT COUNT(DISTINCT ", column, " ),",
+                   "MIN(", column, "),",
+                   "MAX(", column, ")",
+                   "FROM ", schema.table)
+  } else{
+    query <- paste("SELECT COUNT(DISTINCT ", column, " ),",
+                   "MIN(", column, "),",
+                   "MAX(", column, ")",
+                   "FROM ", schema.table,
+                   "WHERE", query.filter)
+  }
   return(query)
 }
 
@@ -60,15 +80,25 @@ buildQueryColumnFrequency.sqlserver <- function(conn.info,
                                       schema,
                                       table,
                                       column,
-                                      limit.freq.values, ...){
+                                      limit.freq.values,
+                                      query.filter, ...){
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)
 
-  query <- paste("SELECT TOP", limit.freq.values, column, "AS value",
-                 ", COUNT(*) AS freq",
-                  "FROM ", schema.table,
-                  "GROUP BY ", column,
-                  "ORDER BY freq DESC, value")
+  if (is.na(query.filter)) {
+    query <- paste("SELECT TOP", limit.freq.values, column, "AS value",
+                   ", COUNT(*) AS freq",
+                   "FROM ", schema.table,
+                   "GROUP BY ", column,
+                   "ORDER BY freq DESC, value")
+  } else {
+    query <- paste("SELECT TOP", limit.freq.values, column, "AS value",
+                   ", COUNT(*) AS freq",
+                   "FROM ", schema.table,
+                   "WHERE", query.filter,
+                   "GROUP BY ", column,
+                   "ORDER BY freq DESC, value")
+  }
   return(query)
 }
 

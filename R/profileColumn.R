@@ -1,19 +1,3 @@
-
-appendWhereClause <- function(query, where.clause){
-
-  if (! is.na(where.clause) ){
-
-    # in case there is already a where clause append as an AND
-    if( grepl("WHERE", toupper(query)) ){
-      return(paste(query, "AND", where.clause))
-    } else{
-      return(paste(query, "WHERE", where.clause))
-    }
-  } else{
-    return(query)
-  }
-}
-
 # Profile the column from the schema.table
 profileColumn <- function(conn.info,
                           schema,
@@ -33,16 +17,18 @@ profileColumn <- function(conn.info,
   conn <- connectDB(conn.info)
 
   # Count(*) from table
-  query.count.total <- appendWhereClause(buildQueryCountTotal(conn.info,
+  query.count.total <- buildQueryCountTotal(conn.info,
                                            schema = schema,
-                                           table = table), query.filter)
+                                           table = table,
+                                           query.filter = query.filter)
   count.total <- unlist(odbc::dbGetQuery(conn, query.count.total))[[1]]
 
   # Count(distinct column), min(column), max(column) from table
-  query.column.stats <- appendWhereClause(buildQueryColumnStats(conn.info,
+  query.column.stats <- buildQueryColumnStats(conn.info,
                                               schema,
                                               table,
-                                              column), query.filter)
+                                              column,
+                                              query.filter)
   column.stats <- odbc::dbGetQuery(conn, query.column.stats)
 
   count.distinct <- column.stats[[1]]
@@ -50,20 +36,21 @@ profileColumn <- function(conn.info,
   max.value <- column.stats[[3]]
 
   # Count(*) from table where column is null
-  query.count.null <- appendWhereClause(buildQueryCountNull(conn.info,
+  query.count.null <- buildQueryCountNull(conn.info,
                                           schema,
                                           table,
-                                          column), query.filter)
+                                          column,
+                                          query.filter)
   count.null <- unlist(odbc::dbGetQuery(conn, query.count.null))[[1]]
 
   # Select values and frequencies
   # Column, count(*) from table group by column
-  query.column.freq <- appendWhereClause(buildQueryColumnFrequency(conn.info,
+  query.column.freq <- buildQueryColumnFrequency(conn.info,
                                                  schema,
                                                  table,
                                                  column,
-                                                 limit.freq.values),
-                                         query.filter)
+                                                 limit.freq.values,
+                                                 query.filter)
   column.freq <- odbc::dbGetQuery(conn, query.column.freq)
   names(column.freq) <- c( "value", "freq")
   column.freq$perc <- column.freq$freq / count.total

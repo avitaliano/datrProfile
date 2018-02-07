@@ -126,6 +126,7 @@ buildQueryProfileColumnFormatFrequency.teradata <- function(conn.info,
                                                             schema,
                                                             query.filter,
                                                             ...){
+  #TODO: handle accentuation
 
   # Concat schema and table
   schema.table <- paste0(trimws(schema), ".", table)

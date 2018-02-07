@@ -23,7 +23,8 @@ buildQueryColumnMetadata.teradata <- function(conn.info,
                   "0 AS column_precision",
                   "FROM DBC.COLUMNS",
                   "WHERE DatabaseName =", paste0("'", schema, "'"),
-                  "AND TableName =", paste0("'", table, "'"))
+                  "AND TableName =", paste0("'", table, "'"),
+                  "ORDER BY ColumnID")
   return(query)
 }
 

@@ -7,8 +7,6 @@ profileColumn <- function(conn.info,
                           query.filter,
                           limit.freq.values = 30){
 
-  # TODO: implement filtered profile
-
   cat(sprintf("Starting statistics for column %s - at %s\n",
                 column,
                 Sys.time()))

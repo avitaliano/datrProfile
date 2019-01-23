@@ -1,16 +1,20 @@
 # test sqlserver
 c1 <- prepareConnection(db.vendor = "sqlserver",
                         dsn = "SQL_BCBASE_DP", db.encoding = "latin1")
-getTableColumns(c1, "bcb", "GEO_MUN_MUNICIPIO")
-p1 <- runProfile(c1, schema = "bcb", table = "GEO_MUN_MUNICIPIO",
-                 query.filter = "MUN_IB_MUNICIPIO_BRASIL = 1", is.parallel = F)
+getTableColumns(c1, "bcb", "GEO_PAI_PAIS")
+p1 <- runProfile(c1, schema = "bcb", table = "GEO_PAI_PAIS")
+p1$columnProfile[[2]]
+
+
+p1$columnProfile[[3]]$format.freq
 
 # test teradata
 c2 <- prepareConnection(db.vendor = "teradata", db.encoding = "latin1",
                         dsn = "TERADATA_IDQ" )
-p2 <- runProfile(c2, schema = "BCBDWDES_DDM", table = "GEOTB_MUN_MUNICIPIO",
-                 query.filter = "MUN_IB_MUNICIPIO_BRASIL = 1", is.parallel = F)
+p2 <- runProfile(c2, schema = "BCBDWDES_DDM", table = "GEOTB_PAI_PAIS")
 
+p2$columnProfile[[2]]$format.freq
+library(dplyr)
 p2$columnProfile[[1]]$format.freq %>% View
 
 # test sqlite
@@ -19,7 +23,7 @@ c3 <- prepareConnection(db.vendor = "sqlite", odbc.driver = RSQLite::SQLite(),
 p3 <- runProfile(c3, table = "iris", is.parallel = F, query.filter = "Species = 'setosa'")
 p3
 p4 <- runProfile(c3, table = "mtcars", is.parallel = T)
-p4
+p4$columnProfile[[1]]
 
 # format profile
 str(c)

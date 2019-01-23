@@ -1,6 +1,5 @@
 #print.profile
 
-
 #' Shows a summary of the data profile
 #'
 #' @param x Profile object
@@ -8,7 +7,7 @@
 #'
 #' @return data.frame with summary information
 #' @export
-summary.profile <- function(x, ...){
+summary.profile <- function(object, ...){
 
   # isolates data.frame from columnProfile list to become print-friendly
   f <- function(columnProfile){
@@ -43,7 +42,7 @@ summary.profile <- function(x, ...){
     return(df)
   }
 
-  summary <- do.call(rbind, lapply(x$columnProfile, f))
+  summary <- do.call(rbind, lapply(object$columnProfile, f))
   return(summary)
 }
 

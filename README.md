@@ -1,5 +1,4 @@
 # datrProfile 
-## Column profile for tables and datasets
 
 <!-- badges: start -->
 
@@ -8,6 +7,6 @@
 <!-- badges: end -->
 
 
-
+## Column profile for tables and datasets
 
 Profiles datasets (collecting statistics and informative summaries about that data) on data frames and ODBC tables: max, min, avg, sd, nulls, distinct values, data patterns, data/format frequencies.

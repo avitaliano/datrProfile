@@ -3,7 +3,7 @@
 #' Issues query against the RDBS to retrieve information about each column
 #' of the table. Name, type, length, precision, etc.
 #'
-#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param schema Table schema
 #' @param table Table name
 #'

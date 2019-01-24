@@ -8,7 +8,7 @@ profileColumnFormat(conn.info, column, column.datatype, schema, table,
   count.total, query.filter, show.percentage = 0.01)
 }
 \arguments{
-\item{conn.info}{Connection info created with \code{\link{prepareConnection()}}}
+\item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
 
 \item{column}{Column name that will be profiled}
 

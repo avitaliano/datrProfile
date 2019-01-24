@@ -7,7 +7,7 @@
 buildQueryProfileColumnFormatFrequency(conn.info, ...)
 }
 \arguments{
-\item{conn.info}{Connection info created with \code{\link{prepareConnection()}}}
+\item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
 
 \item{...}{other parameters}
 }

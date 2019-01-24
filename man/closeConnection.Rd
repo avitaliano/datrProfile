@@ -8,7 +8,7 @@
 closeConnection(conn)
 }
 \arguments{
-\item{conn}{Connection created at \code{\link{connectDB()}}}
+\item{conn}{Connection created at \code{\link{connectDB}}}
 }
 \value{
 \code{TRUE} if succeeded at closing connection

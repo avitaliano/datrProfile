@@ -1,6 +1,6 @@
 #' buildQueryColumnMetadata
 #'
-#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param ... specific parameters for each class
 #'
 #' @return query columns' metadata

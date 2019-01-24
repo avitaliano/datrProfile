@@ -7,7 +7,7 @@
 getTableColumns(conn.info, schema, table)
 }
 \arguments{
-\item{conn.info}{Connection info created with \code{\link{prepareConnection()}}}
+\item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
 
 \item{schema}{Table schema}
 

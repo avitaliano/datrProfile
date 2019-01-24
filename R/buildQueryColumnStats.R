@@ -1,6 +1,6 @@
 #' buildQueryColumnStats
 #'
-#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param ... other parameters
 #'
 #' @return query min and max values

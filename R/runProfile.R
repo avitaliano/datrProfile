@@ -4,7 +4,7 @@
 #' about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
 #' distinct values, data patterns, data/format frequencies.
 #'
-#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param schema Table schema
 #' @param table Table name
 #' @param is.parallel Boolean that indicates if profile will run in parallel

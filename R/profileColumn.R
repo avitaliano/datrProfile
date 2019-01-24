@@ -1,6 +1,6 @@
 #' profileColumn
 #'
-#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param schema Table schema
 #' @param table Table name
 #' @param column Column being profiled

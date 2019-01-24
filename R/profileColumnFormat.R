@@ -3,7 +3,7 @@
 #' Profiles column based on its format, using masking strategy.
 #' X = char, 9 = digit, S = symbol
 #'
-#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param column Column name that will be profiled
 #' @param column.datatype Column datatipe
 #' @param schema Table schema

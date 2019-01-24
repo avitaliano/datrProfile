@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{Profile object}
 
-\item{...}{}
+\item{...}{other parameters}
 }
 \value{
 data.frame with summary information

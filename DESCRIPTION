@@ -16,5 +16,6 @@ Suggests: testthat
 Imports:
     odbc,
     snow,
-    dplyr
+    dplyr,
+    RSQLite
 RoxygenNote: 6.0.1

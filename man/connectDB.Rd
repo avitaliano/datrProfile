@@ -7,7 +7,7 @@
 connectDB(conn.info, ...)
 }
 \arguments{
-\item{conn.info}{Connection info created at \code{\link{prepareConnection()}}}
+\item{conn.info}{Connection info created at \code{\link{prepareConnection}}}
 }
 \value{
 \code{connection} to database
@@ -18,8 +18,6 @@ Connects to database using \code{\link{odbc::dbConnect}}
 }
 \examples{
 conn.info.teradata <- prepareConnection(db.vendor = "teradata",
-   db.encoding = "latin1"
-   db.host = "192.168.0.36",
    user = "myuser", passwd = "mypasswd")
 conn <- connectDB(conn.info.teradata)
 conn.info.sqlite <- prepareConnection(db.vendor = "sqlite",

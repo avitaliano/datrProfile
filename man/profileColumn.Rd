@@ -8,7 +8,7 @@ profileColumn(conn.info, schema, table, column, column.datatype, query.filter,
   limit.freq.values = 30)
 }
 \arguments{
-\item{conn.info}{Connection info created with \code{\link{prepareConnection()}}}
+\item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
 
 \item{schema}{Table schema}
 

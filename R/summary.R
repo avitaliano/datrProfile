@@ -3,7 +3,7 @@
 #' Shows a summary of the data profile
 #'
 #' @param object Profile object
-#' @param ...
+#' @param ... other parameters
 #'
 #' @return data.frame with summary information
 #' @export

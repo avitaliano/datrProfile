@@ -10,7 +10,7 @@ runProfile(conn.info, schema = NULL, table, is.parallel = TRUE,
   count.nodes = 5, query.filter = NA)
 }
 \arguments{
-\item{conn.info}{Connection info created with \code{\link{prepareConnection()}}}
+\item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
 
 \item{schema}{Table schema}
 

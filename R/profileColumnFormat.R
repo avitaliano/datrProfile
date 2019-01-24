@@ -1,4 +1,19 @@
-# Profile the format of the column from the schema.table
+#' profileColumnFormat
+#'
+#' Profiles column based on its format, using masking strategy.
+#' X = char, 9 = digit, S = symbol
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param column Column name that will be profiled
+#' @param column.datatype Column datatipe
+#' @param schema Table schema
+#' @param table Table name
+#' @param count.total Number of rows to be profiled
+#' @param query.filter Filter applied to the table, when profilling
+#' @param show.percentage Threshold considered when showing formats'
+#' percentages
+#'
+#' @return Data Frame containing columns' metadata
 profileColumnFormat <- function(conn.info,
                           column,
                           column.datatype,
@@ -8,8 +23,8 @@ profileColumnFormat <- function(conn.info,
                           query.filter,
                           show.percentage = 0.01){
 
-  # does not get column format stats for datetime columns
-  if( ! is.datetimeColumn(column.datatype) ){
+  # Not getting column format stats for datetime columns
+  if( ! isDatetimeColumn(column.datatype) ){
 
     # builds query
     query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,

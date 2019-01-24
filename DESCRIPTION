@@ -15,5 +15,6 @@ LazyData: true
 Suggests: testthat
 Imports:
     odbc,
-    snow
-
+    snow,
+    dplyr
+RoxygenNote: 6.0.1

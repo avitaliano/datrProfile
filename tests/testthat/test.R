@@ -1,9 +1,4 @@
-# test sqlserver
-c1 <- prepareConnection(db.vendor = "sqlserver",
-                        dsn = "SQL_BCBASE_DP", db.encoding = "latin1")
-getTableColumns(c1, "bcb", "GEO_PAI_PAIS")
-p1 <- runProfile(c1, schema = "bcb", table = "GEO_PAI_PAIS")
-p1$columnProfile[[2]]
+
 
 
 p1$columnProfile[[3]]$format.freq

@@ -1,4 +1,18 @@
 # Profile the column from the schema.table
+#' Title
+#'
+#' @param conn.info
+#' @param schema
+#' @param table
+#' @param column
+#' @param column.datatype
+#' @param query.filter
+#' @param limit.freq.values
+#'
+#' @return
+#' @export
+#'
+#' @examples
 profileColumn <- function(conn.info,
                           schema,
                           table,

@@ -1,48 +1,28 @@
-# getTableColumns
-
+#' getTableColumns
+#'
+#' Issues query against the RDBS to retrieve information about each column
+#' of the table. Name, type, length, precision, etc.
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param schema Table schema
+#' @param table Table name
+#'
+#' @return data frame containing the columns' metadata
+#' @export
 getTableColumns <- function(conn.info, schema, table){
-  # connects to database
+
+  # opens connection to db
   conn <- connectDB(conn.info)
 
-  # retrieves columns' metadata
+  # builds query to retrieve columns metadata
   query.columns <- buildQueryColumnMetadata(conn.info,
                                             schema = schema,
                                             table = table)
+
+  # issues the query
   columns.metadata <- odbc::dbGetQuery(conn, query.columns)
 
   # disconnects
   conn <- closeConnection(conn)
   return(columns.metadata)
 }
-
-getColumnDatatype <- function(column, columns.metadata){
-  return(columns.metadata[columns.metadata$column_name == column, ]$column_datatype)
-}
-
-is.stringColumn <- function(column.datatype){
-
-  string_datatypes <- c("CHAR", "VARCHAR", "STRING", "TEXT")
-  return(any(toupper(column.datatype) %in% string_datatypes))
-
-}
-
-is.datetimeColumn <- function(column.datatype){
-
-  datetime_datatypes <- c("TIMESTAMP", "DATE", "TIME", "DATETIME",
-                          "POSIXT", "POSIXCT")
-  return(any(toupper(column.datatype) %in% datetime_datatypes))
-
-}
-
-is.numericColumn <- function(column.datatype){
-
-  numeric_datatypes <- c("INT", "INTEGER", "NUMBER", "NUMERIC")
-  return(any(toupper(column.datatype) %in% numeric_datatypes))
-
-}
-
-is.longIntColumn <- function(column.datatype){
-  longInt_datatypes <- c("BIGINT", "INTEGER64")
-  return(any(toupper(column.datatype) %in% longInt_datatypes))
-}
-

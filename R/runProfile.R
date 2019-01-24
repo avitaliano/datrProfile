@@ -1,12 +1,15 @@
 # runProfile
 
-#' Runs a profile at the table at the database over all table's columns.
+#' Profiles datasets (collecting statistics and informative summaries
+#' about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
+#' distinct values, data patterns, data/format frequencies.
 #'
-#' @param conn.info Connection info created at \code{\link{prepareConnection()}}
+#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
 #' @param schema Table schema
 #' @param table Table name
 #' @param is.parallel Boolean that indicates if profile will run in parallel
 #' @param count.nodes Number of nodes used when is.parallel = TRUE
+#' @param query.filter Filter applied to the table, when profilling
 #'
 #' @return profile results for the table
 #' @export
@@ -14,7 +17,7 @@
 #' @examples
 #' conn.info <- prepareConnection(db.vendor = "teradata",
 #'    dsn = "ODBC_MYDB", user = "myuser", passwd = "mypasswd")
-#' p <- runProfile(conn.info, "table_schema", "my_table")
+#' p <- runProfile(conn.info, "table_schema", "table_name")
 runProfile <- function(conn.info, schema = NULL, table,
                        is.parallel = TRUE,
                        count.nodes = 5,

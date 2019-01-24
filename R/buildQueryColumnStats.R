@@ -1,4 +1,10 @@
-# Count(distinct column), min(column), max(column) from table
+#' buildQueryColumnStats
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param ... other parameters
+#'
+#' @return query min and max values
+#' @export
 buildQueryColumnStats <- function(conn.info, ...){
   UseMethod("buildQueryColumnStats", conn.info)
 }

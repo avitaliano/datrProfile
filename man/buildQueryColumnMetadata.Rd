@@ -12,7 +12,7 @@ buildQueryColumnMetadata(conn.info, ...)
 \item{...}{specific parameters for each class}
 }
 \value{
-query to retrieve columns' metadata
+query columns' metadata
 }
 \description{
 buildQueryColumnMetadata

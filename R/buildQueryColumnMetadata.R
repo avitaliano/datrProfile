@@ -1,10 +1,9 @@
-
 #' buildQueryColumnMetadata
 #'
 #' @param conn.info Connection info created with \code{\link{prepareConnection()}}
 #' @param ... specific parameters for each class
 #'
-#' @return query to retrieve columns' metadata
+#' @return query columns' metadata
 #' @export
 buildQueryColumnMetadata <- function(conn.info, ...){
   UseMethod("buildQueryColumnMetadata", conn.info)

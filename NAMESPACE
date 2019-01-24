@@ -2,7 +2,12 @@
 
 S3method(print,profile)
 S3method(summary,profile)
+export(buildQueryColumnFrequency)
 export(buildQueryColumnMetadata)
+export(buildQueryColumnStats)
+export(buildQueryCountNull)
+export(buildQueryCountTotal)
+export(buildQueryProfileColumnFormatFrequency)
 export(closeConnection)
 export(connectDB)
 export(getTableColumns)

@@ -2,14 +2,31 @@
 % Please edit documentation in R/profileColumn.R
 \name{profileColumn}
 \alias{profileColumn}
-\title{Title}
+\title{profileColumn}
 \usage{
 profileColumn(conn.info, schema, table, column, column.datatype, query.filter,
   limit.freq.values = 30)
 }
 \arguments{
-\item{limit.freq.values}{}
+\item{conn.info}{Connection info created with \code{\link{prepareConnection()}}}
+
+\item{schema}{Table schema}
+
+\item{table}{Table name}
+
+\item{column}{Column being profiled}
+
+\item{column.datatype}{Column datatype}
+
+\item{query.filter}{Filter applied before profile the column}
+
+\item{limit.freq.values}{Distinct values shown in frequency data frame}
+}
+\value{
+columnProfile <- list(column, count.total,
+count.distinct, perc.distinct, count.null, perc.null,
+min.value, max.value, column.freq, format.freq = format.freq)
 }
 \description{
-Title
+profileColumn
 }

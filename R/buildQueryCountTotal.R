@@ -1,13 +1,10 @@
-# Count(*) from table
-#' Title
+#' buildQueryCountTotal
 #'
-#' @param conn.info
-#' @param ...
+#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param ... other parameters
 #'
-#' @return
+#' @return query count(*)
 #' @export
-#'
-#' @examples
 buildQueryCountTotal <- function(conn.info, ...){
   UseMethod("buildQueryCountTotal", conn.info)
 }

@@ -1,18 +1,17 @@
-# Profile the column from the schema.table
-#' Title
+#' profileColumn
 #'
-#' @param conn.info
-#' @param schema
-#' @param table
-#' @param column
-#' @param column.datatype
-#' @param query.filter
-#' @param limit.freq.values
+#' @param conn.info Connection info created with \code{\link{prepareConnection()}}
+#' @param schema Table schema
+#' @param table Table name
+#' @param column Column being profiled
+#' @param column.datatype Column datatype
+#' @param query.filter Filter applied before profile the column
+#' @param limit.freq.values Distinct values shown in frequency data frame
 #'
-#' @return
+#' @return  columnProfile <- list(column, count.total,
+#' count.distinct, perc.distinct, count.null, perc.null,
+#' min.value, max.value, column.freq, format.freq = format.freq)
 #' @export
-#'
-#' @examples
 profileColumn <- function(conn.info,
                           schema,
                           table,

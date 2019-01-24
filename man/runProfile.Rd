@@ -30,8 +30,3 @@ Profiles datasets (collecting statistics and informative summaries
 about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
 distinct values, data patterns, data/format frequencies.
 }
-\examples{
-conn.info <- prepareConnection(db.vendor = "teradata",
-   dsn = "ODBC_MYDB", user = "myuser", passwd = "mypasswd")
-p <- runProfile(conn.info, "table_schema", "table_name")
-}

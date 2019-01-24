@@ -13,11 +13,6 @@
 #'
 #' @return profile results for the table
 #' @export
-#'
-#' @examples
-#' conn.info <- prepareConnection(db.vendor = "teradata",
-#'    dsn = "ODBC_MYDB", user = "myuser", passwd = "mypasswd")
-#' p <- runProfile(conn.info, "table_schema", "table_name")
 runProfile <- function(conn.info, schema = NULL, table,
                        is.parallel = TRUE,
                        count.nodes = 5,

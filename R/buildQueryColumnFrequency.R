@@ -1,14 +1,19 @@
-#' buildQueryColumnFrequency
-#'
-#' @param conn.info Connection info created with \code{\link{prepareConnection}}
-#' @param ... other parameters
-#'
-#' @return query count frequency of values
-#' @export
 buildQueryColumnFrequency <- function(conn.info, ...){
   UseMethod("buildQueryColumnFrequency", conn.info)
 }
 
+#' buildQueryColumnFrequency.sqlite
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table Table Name
+#' @param column Column profiled
+#' @param limit.freq.values Number of frequency values detailed
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query column, count(*) from table
+#' @export
 buildQueryColumnFrequency.sqlite <- function(conn.info,
                                              schema,
                                              table,
@@ -37,6 +42,18 @@ buildQueryColumnFrequency.sqlite <- function(conn.info,
 }
 
 
+#' buildQueryColumnFrequency.sqlserver
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table Table Name
+#' @param column Column profiled
+#' @param limit.freq.values Number of frequency values detailed
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query column, count(*) from table
+#' @export
 buildQueryColumnFrequency.sqlserver <- function(conn.info,
                                                 schema,
                                                 table,
@@ -63,7 +80,18 @@ buildQueryColumnFrequency.sqlserver <- function(conn.info,
   return(query)
 }
 
-
+#' buildQueryColumnFrequency.teradata
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table Table Name
+#' @param column Column profiled
+#' @param limit.freq.values Number of frequency values detailed
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query column, count(*) from table
+#' @export
 buildQueryColumnFrequency.teradata <- function(conn.info,
                                                schema,
                                                table,

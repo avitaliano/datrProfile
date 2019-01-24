@@ -28,10 +28,10 @@ profileColumnFormat <- function(conn.info,
 
     # builds query
     query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,
-                                                                column,
-                                                                table,
-                                                                schema,
-                                                                query.filter)
+                                                                schema = schema,
+                                                                table = table,
+                                                                column = column,
+                                                                query.filter = query.filter)
 
     # only implemented in teradata database.
     if ( ! is.na(query.format.freq)) {

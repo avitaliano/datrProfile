@@ -8,13 +8,14 @@ connectDB(conn.info, ...)
 }
 \arguments{
 \item{conn.info}{Connection info created at \code{\link{prepareConnection}}}
+
+\item{...}{Other parameters}
 }
 \value{
 \code{connection} to database
 }
 \description{
-Connects to database using \code{\link{odbc::dbConnect}}
-#'
+Connects to database using \code{\link{odbc:dbConnect}}
 }
 \examples{
 conn.info.teradata <- prepareConnection(db.vendor = "teradata",

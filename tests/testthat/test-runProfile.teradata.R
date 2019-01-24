@@ -1,5 +1,5 @@
 library(datrProfile)
-context("runProfile.teradata")
+context("Run Profile Teradata")
 
 test_that("runProfile.teradata", {
   conn <- prepareConnection(db.vendor = "teradata",
@@ -9,6 +9,7 @@ test_that("runProfile.teradata", {
                         schema = "BCBDWDES_DDM",
                         table = "PESTB_TPE_TIPO_PESSOA",
                         is.parallel = FALSE)
+
   expect_equal("BCBDWDES_DDM", profile[[1]])
   expect_equal("PESTB_TPE_TIPO_PESSOA", profile[[2]])
   expect_equal(profile[[3]][[1]]$count.distinct, 6)

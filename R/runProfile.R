@@ -23,8 +23,7 @@ runProfile <- function(conn.info, schema = NULL, table,
                        count.nodes = 5,
                        query.filter = NA){
 
-  print(paste0("Starting profile at table ", schema, ".", table,
-               " at ", Sys.time()))
+  print(paste0(Sys.time()," Started profile at table ", schema, ".", table))
 
   profile <- list( schema = schema,
                    table = table,
@@ -98,7 +97,6 @@ runProfile <- function(conn.info, schema = NULL, table,
   }
 
   profile$endtime = Sys.time()
-  print(paste0("Profile at table ", schema, ".", table,
-               " ended at ", profile$endtime))
+  print(paste0(profile$endtime," Ended profile at table ", schema, ".", table))
   return(profile)
 }

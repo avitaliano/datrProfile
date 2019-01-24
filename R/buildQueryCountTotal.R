@@ -1,15 +1,20 @@
-#' buildQueryCountTotal
-#'
-#' @param conn.info Connection info created with \code{\link{prepareConnection}}
-#' @param ... other parameters
-#'
-#' @return query count(*)
-#' @export
 buildQueryCountTotal <- function(conn.info, ...){
   UseMethod("buildQueryCountTotal", conn.info)
 }
 
-buildQueryCountTotal.sqlite <- function(conn.info, schema, table,
+#' buildQueryCountTotal.sqlite
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query count(*) from table
+#' @export
+buildQueryCountTotal.sqlite <- function(conn.info,
+                                        schema,
+                                        table,
                                         query.filter, ...){
   if (is.na(query.filter)){
     query <- paste("SELECT COUNT(*) FROM ", table)
@@ -20,6 +25,16 @@ buildQueryCountTotal.sqlite <- function(conn.info, schema, table,
   return(query)
 }
 
+#' buildQueryCountTotal.sqlserver
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query count(*) from table
+#' @export
 buildQueryCountTotal.sqlserver <- function(conn.info, schema,
                                            table, query.filter, ...){
 
@@ -35,6 +50,16 @@ buildQueryCountTotal.sqlserver <- function(conn.info, schema,
   return(query)
 }
 
+#' buildQueryCountTotal.teradata
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query count(*) from table
+#' @export
 buildQueryCountTotal.teradata <- function(conn.info,
                                           schema,
                                           table,

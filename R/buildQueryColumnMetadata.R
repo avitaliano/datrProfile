@@ -1,18 +1,18 @@
-#' buildQueryColumnMetadata
-#'
-#' @param conn.info Connection info created with \code{\link{prepareConnection}}
-#' @param ... specific parameters for each class
-#'
-#' @return query columns' metadata
-#' @export
 buildQueryColumnMetadata <- function(conn.info, ...){
   UseMethod("buildQueryColumnMetadata", conn.info)
 }
 
+#' buildQueryColumnMetadata.teradata
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#'
+#' @return query columns' metadata
+#' @export
 buildQueryColumnMetadata.teradata <- function(conn.info,
                                               schema,
-                                              table,
-                                              ...){
+                                              table){
 
   query <-  paste("SELECT DatabaseName as table_schema,",
                   "TableName as table_name,",
@@ -37,7 +37,19 @@ buildQueryColumnMetadata.teradata <- function(conn.info,
   return(query)
 }
 
-buildQueryColumnMetadata.sqlserver <- function(conn.info, schema, table,
+#' buildQueryColumnMetadata.sqlserver
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param database Database Name
+#' @param ... Other params
+#'
+#' @return query columns' metadata
+#' @export
+buildQueryColumnMetadata.sqlserver <- function(conn.info,
+                                               schema,
+                                               table,
                                                database, ...){
 
   query <- paste("SELECT TABLE_SCHEMA as table_schema,",
@@ -59,10 +71,15 @@ buildQueryColumnMetadata.sqlserver <- function(conn.info, schema, table,
   return(query)
 }
 
+#' buildQueryColumnMetadata.sqlite
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param table  Table Name
+#'
+#' @return query columns' metadata
+#' @export
 buildQueryColumnMetadata.sqlite <- function(conn.info,
-                                            schema = NULL,
-                                            table,
-                                            ...){
+                                            table){
 
   query <- paste("SELECT '' as table_schema,",
                  paste0( "'", table, "'"),

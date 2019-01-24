@@ -1,14 +1,18 @@
-#' buildQueryCountNull
-#'
-#' @param conn.info Connection info created with \code{\link{prepareConnection}}
-#' @param ... other parameters
-#'
-#' @return query count(null)
-#' @export
 buildQueryCountNull <- function(conn.info, ...){
   UseMethod("buildQueryCountNull", conn.info)
 }
 
+#' buildQueryCountNull.sqlite
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param column Column profiled
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query select count(*) where collumn is null
+#' @export
 buildQueryCountNull.sqlite <- function(conn.info, schema, table,
                                        column, query.filter,  ...){
 
@@ -23,6 +27,17 @@ buildQueryCountNull.sqlite <- function(conn.info, schema, table,
   return(query)
 }
 
+#' buildQueryCountNull.teradata
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param column Column profiled
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query select count(*) where collumn is null
+#' @export
 buildQueryCountNull.teradata <- function(conn.info,
                                          schema,
                                          table,
@@ -44,6 +59,17 @@ buildQueryCountNull.teradata <- function(conn.info,
   return(query)
 }
 
+#' buildQueryCountNull.sqlserver
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param column Column profiled
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return query select count(*) where collumn is null
+#' @export
 buildQueryCountNull.sqlserver <- function(conn.info, schema, table,
                                           column, query.filter, ...){
 

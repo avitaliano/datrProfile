@@ -1,28 +1,42 @@
-#' buildQueryProfileColumnFormatFrequency
-#'
-#' @param conn.info Connection info created with \code{\link{prepareConnection}}
-#' @param ... other parameters
-#'
-#' @return query format frequency (X = letter, 9 = digit, b = white space)
-#' @export
 buildQueryProfileColumnFormatFrequency <- function(conn.info, ...){
   UseMethod("buildQueryProfileColumnFormatFrequency", conn.info)
 }
 
+#' buildQueryProfileColumnFormatFrequency.sqlite
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param column Column profiled
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return queries column format frequency from table
+#' @export
 buildQueryProfileColumnFormatFrequency.sqlite <- function(conn.info,
-                                                          column,
-                                                          table,
                                                           schema,
-                                                          ...){
+                                                          table,
+                                                          column,
+                                                          query.filter, ...){
   return(NA)
 }
 
+#' buildQueryProfileColumnFormatFrequency.teradata
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param column Column profiled
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return queries column format frequency from table
+#' @export
 buildQueryProfileColumnFormatFrequency.teradata <- function(conn.info,
-                                                            column,
-                                                            table,
                                                             schema,
-                                                            query.filter,
-                                                            ...){
+                                                            table,
+                                                            column,
+                                                            query.filter, ...){
   #TODO: handle accentuation
 
   # Concat schema and table
@@ -59,12 +73,22 @@ buildQueryProfileColumnFormatFrequency.teradata <- function(conn.info,
   return(query)
 }
 
+#' buildQueryProfileColumnFormatFrequency.sqlserver
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param schema Table Schema
+#' @param table  Table Name
+#' @param column Column profiled
+#' @param query.filter Filter applied to the profile
+#' @param ... Other parameters
+#'
+#' @return queries column format frequency from table
+#' @export
 buildQueryProfileColumnFormatFrequency.sqlserver <- function(conn.info,
-                                                             column,
-                                                             table,
                                                              schema,
-                                                             query.filter,
-                                                             ...){
+                                                             table,
+                                                             column,
+                                                             query.filter, ...){
   #TODO: there must be some other way...
   #TODO: handle symbols
 

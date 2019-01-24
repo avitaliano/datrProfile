@@ -2,8 +2,7 @@
 % Please edit documentation in R/closeConnection.R
 \name{closeConnection}
 \alias{closeConnection}
-\title{Disconnnects from database using \code{\link{odbc::dbDisconnect}}
-#'}
+\title{closeConnection}
 \usage{
 closeConnection(conn)
 }
@@ -14,6 +13,6 @@ closeConnection(conn)
 \code{TRUE} if succeeded at closing connection
 }
 \description{
-Disconnnects from database using \code{\link{odbc::dbDisconnect}}
+Disconnnects from database using \code{\link{odbc:dbDisconnect}}
 #'
 }

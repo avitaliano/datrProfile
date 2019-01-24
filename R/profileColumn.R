@@ -20,9 +20,7 @@ profileColumn <- function(conn.info,
                           query.filter,
                           limit.freq.values = 30){
 
-  cat(sprintf("Starting statistics for column %s - at %s\n",
-                column,
-                Sys.time()))
+  print(paste(Sys.time(),"Started profile for column", column))
 
   # Connects to database
   conn <- connectDB(conn.info)
@@ -36,10 +34,10 @@ profileColumn <- function(conn.info,
 
   # Count(distinct column), min(column), max(column) from table
   query.column.stats <- buildQueryColumnStats(conn.info,
-                                              schema,
-                                              table,
-                                              column,
-                                              query.filter)
+                                              schema = schema,
+                                              table = table,
+                                              column = column,
+                                              query.filter = query.filter)
   column.stats <- odbc::dbGetQuery(conn, query.column.stats)
 
   count.distinct <- column.stats[[1]]
@@ -48,20 +46,20 @@ profileColumn <- function(conn.info,
 
   # Count(*) from table where column is null
   query.count.null <- buildQueryCountNull(conn.info,
-                                          schema,
-                                          table,
-                                          column,
-                                          query.filter)
+                                          schema = schema,
+                                          table = table,
+                                          column = column,
+                                          query.filter = query.filter)
   count.null <- unlist(odbc::dbGetQuery(conn, query.count.null))[[1]]
 
   # Select values and frequencies
   # Column, count(*) from table group by column
   query.column.freq <- buildQueryColumnFrequency(conn.info,
-                                                 schema,
-                                                 table,
-                                                 column,
-                                                 limit.freq.values,
-                                                 query.filter)
+                                                 schema = schema,
+                                                 table = table,
+                                                 column = column,
+                                                 limit.freq.values = limit.freq.values,
+                                                 query.filter = query.filter)
   column.freq <- odbc::dbGetQuery(conn, query.column.freq)
   names(column.freq) <- c( "value", "freq")
   column.freq$perc <- column.freq$freq / count.total
@@ -95,9 +93,10 @@ profileColumn <- function(conn.info,
 
   rownames(columnProfile) <- NULL
 
-  cat(sprintf("Ended statistics for column %s - at %s\n",
-              column,
-              Sys.time()))
+  # print(paste(Sys.time(),"Ended profile for column", column))
+  # cat(sprintf("Ended statistics for column %s - at %s\n",
+  #             column,
+  #             Sys.time()))
 
   return(columnProfile)
 }

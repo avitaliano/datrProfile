@@ -58,9 +58,12 @@ profileColumnFormat <- function(conn.info,
     # excludes detailed rows from format.freq, and binds others
     if ( nrow(others) > 0 ){
       # group others in one row
-      others <- dplyr::summarise(others, format = "others",
-                                 freq = sum(freq),
-                                 perc = sum(perc))
+      others <- with(others, dplyr::summarise(format := "others",
+                                              freq = sum(freq),
+                                              perc = sum(perc)))
+      # others <- dplyr::summarise(others, format := "others",
+      #                            freq = sum(freq),
+      #                            perc = sum(perc))
       # binds others to the data frame
       format.freq <- rbind(
         format.freq[format.freq$perc >= show.percentage,],

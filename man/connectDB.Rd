@@ -15,5 +15,5 @@ connectDB(conn.info, ...)
 \code{connection} to database
 }
 \description{
-Connects to database using \code{\link{odbc:dbConnect}}
+Connects to database using \code{\link[odbc]{dbConnect}}
 }

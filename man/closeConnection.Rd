@@ -13,6 +13,5 @@ closeConnection(conn)
 \code{TRUE} if succeeded at closing connection
 }
 \description{
-Disconnnects from database using \code{\link{odbc:dbDisconnect}}
-#'
+Disconnects from database using \code{\link[odbc]{dbDisconnect}}
 }

@@ -15,5 +15,5 @@
 \code{connection} to database
 }
 \description{
-connectDB.sqlite
+Connects to database using \code{\link[odbc]{dbConnect}}
 }

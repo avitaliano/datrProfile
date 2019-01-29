@@ -1,6 +1,6 @@
 #' connectDB
 #'
-#' Connects to database using \code{\link{odbc:dbConnect}}
+#' Connects to database using \code{\link[odbc]{dbConnect}}
 #'
 #' @param conn.info Connection info created at \code{\link{prepareConnection}}
 #' @param ... Other parameters
@@ -12,6 +12,8 @@ connectDB <- function(conn.info, ...){
 
 
 #' connectDB.sqlite
+#'
+#' Connects to database using \code{\link[odbc]{dbConnect}}
 #'
 #' @param conn.info Connection info created at \code{\link{prepareConnection}}
 #' @param ... Other parameters
@@ -25,6 +27,8 @@ connectDB.sqlite <- function(conn.info, ...){
 
 
 #' connectDB.default
+#'
+#' Connects to database using \code{\link[odbc]{dbConnect}}
 #'
 #' @param conn.info Connection info created at \code{\link{prepareConnection}}
 #' @param ... Other parameters

@@ -23,6 +23,6 @@ getTableColumns <- function(conn.info, schema, table){
   columns.metadata <- odbc::dbGetQuery(conn, query.columns)
 
   # disconnects
-  conn <- closeConnection(conn)
+  closeConnection(conn)
   return(columns.metadata)
 }

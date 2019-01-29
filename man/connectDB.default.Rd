@@ -15,5 +15,5 @@
 \code{connection} to database
 }
 \description{
-connectDB.default
+Connects to database using \code{\link[odbc]{dbConnect}}
 }

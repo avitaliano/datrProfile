@@ -21,7 +21,7 @@ profileColumnFormat <- function(conn.info,
                           table,
                           count.total,
                           query.filter,
-                          show.percentage = 0.01){
+                          show.percentage = 0.03){
 
   # Not getting column format stats for datetime columns
   if( isDatetimeColumn(column.datatype) ){
@@ -29,11 +29,13 @@ profileColumnFormat <- function(conn.info,
   }
 
     # builds query
-    query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,
-                                                                schema = schema,
-                                                                table = table,
-                                                                column = column,
-                                                                query.filter = query.filter)
+    query.format.freq <- buildQueryProfileColumnFormatFrequency(
+      conn.info,
+      schema = schema,
+      table = table,
+      column = column,
+      column.datatype = column.datatype,
+      query.filter = query.filter)
 
     # not implemented in some databases.
     if ( is.na(query.format.freq)) {
@@ -58,12 +60,12 @@ profileColumnFormat <- function(conn.info,
     # excludes detailed rows from format.freq, and binds others
     if ( nrow(others) > 0 ){
       # group others in one row
-      others <- with(others, dplyr::summarise(format := "others",
-                                              freq = sum(freq),
-                                              perc = sum(perc)))
-      # others <- dplyr::summarise(others, format := "others",
-      #                            freq = sum(freq),
-      #                            perc = sum(perc))
+      # others <- with(others, dplyr::summarize(format = "others",
+      #                                         freq = sum(freq),
+      #                                         perc = sum(perc)))
+      others <- dplyr::summarise(others, format := "others",
+                                 freq = sum(freq),
+                                 perc = sum(perc))
       # binds others to the data frame
       format.freq <- rbind(
         format.freq[format.freq$perc >= show.percentage,],

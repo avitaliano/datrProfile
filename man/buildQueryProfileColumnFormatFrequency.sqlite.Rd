@@ -5,7 +5,7 @@
 \title{buildQueryProfileColumnFormatFrequency.sqlite}
 \usage{
 \method{buildQueryProfileColumnFormatFrequency}{sqlite}(conn.info, schema,
-  table, column, query.filter, ...)
+  table, column, column.datatype, query.filter, ...)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
@@ -15,6 +15,8 @@
 \item{table}{Table Name}
 
 \item{column}{Column profiled}
+
+\item{column.datatype}{Column datatype defined at the rdbs}
 
 \item{query.filter}{Filter applied to the profile}
 

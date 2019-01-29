@@ -5,7 +5,7 @@
 \title{profileColumnFormat}
 \usage{
 profileColumnFormat(conn.info, column, column.datatype, schema, table,
-  count.total, query.filter, show.percentage = 0.01)
+  count.total, query.filter, format.show.percentage)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
@@ -22,7 +22,7 @@ profileColumnFormat(conn.info, column, column.datatype, schema, table,
 
 \item{query.filter}{Filter applied to the table, when profilling}
 
-\item{show.percentage}{Threshold considered when showing formats'
+\item{format.show.percentage}{Threshold considered when showing formats'
 percentages}
 }
 \value{

@@ -7,7 +7,7 @@ about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
 distinct values, data patterns, data/format frequencies.}
 \usage{
 runProfile(conn.info, schema = NULL, table, is.parallel = TRUE,
-  count.nodes = 5, query.filter = NA)
+  count.nodes = 5, query.filter = NA, format.show.percentage = 0.03)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
@@ -21,6 +21,9 @@ runProfile(conn.info, schema = NULL, table, is.parallel = TRUE,
 \item{count.nodes}{Number of nodes used when is.parallel = TRUE}
 
 \item{query.filter}{Filter applied to the table, when profilling}
+
+\item{format.show.percentage}{Threshold considered when showing formats'
+percentages}
 }
 \value{
 profile results for the table

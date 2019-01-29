@@ -5,7 +5,7 @@
 \title{profileColumn}
 \usage{
 profileColumn(conn.info, schema, table, column, column.datatype, query.filter,
-  limit.freq.values = 30)
+  limit.freq.values = 30, format.show.percentage)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
@@ -21,6 +21,9 @@ profileColumn(conn.info, schema, table, column, column.datatype, query.filter,
 \item{query.filter}{Filter applied before profile the column}
 
 \item{limit.freq.values}{Distinct values shown in frequency data frame}
+
+\item{format.show.percentage}{Threshold considered when showing formats'
+percentages}
 }
 \value{
 columnProfile <- list(column, count.total,

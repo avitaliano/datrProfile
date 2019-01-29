@@ -1,6 +1,6 @@
 #' closeConnection
 #'
-#' Disconnects from database using \code{\link[odbc]{dbDisconnect}}
+#' Disconnects from database using odbc::dbDisconnect
 #
 #' @param conn Connection created at \code{\link{connectDB}}
 #' @return \code{TRUE} if succeeded at closing connection
@@ -8,3 +8,5 @@
 closeConnection <- function(conn){
   return(odbc::dbDisconnect(conn))
 }
+
+# Disconnects from database using \code{\link[odbc]{dbDisconnect}}

@@ -57,12 +57,7 @@ runProfile <- function(conn.info, schema = NULL, table,
                              "buildQueryColumnStats",
                              "buildQueryColumnFrequency")
                              # TODO: observe if it's not necessary S3 exports,
-                             # "buildQueryColumnMetadata.sqlserver",
-                             # "buildQueryCountTotal.sqlserver",
-                             # "buildQueryCountNull.sqlserver",
-                             # "buildQueryColumnStats.sqlserver",
-                             # "buildQueryColumnFrequency.sqlserver"
-                             # )
+
     snow::clusterExport(cluster, local.functions)
 
     # call profileColumn for each table's column
@@ -73,8 +68,9 @@ runProfile <- function(conn.info, schema = NULL, table,
                                                schema = schema,
                                                table = table,
                                                column = x,
-                                               getColumnDatatype(x,
-                                                                 columns.metadata),
+                                               column.datatype =
+                                                 getColumnDatatype(x,
+                                                                   columns.metadata),
                                              query.filter = query.filter))
 
   snow::stopCluster(cluster)
@@ -86,8 +82,9 @@ runProfile <- function(conn.info, schema = NULL, table,
                                       schema = schema,
                                       table = table,
                                       column = x,
-                                      column.datatype = getColumnDatatype(x,
-                                                                          columns.metadata),
+                                      column.datatype =
+                                        getColumnDatatype(x,
+                                                          columns.metadata),
                                       query.filter = query.filter))
   }
 

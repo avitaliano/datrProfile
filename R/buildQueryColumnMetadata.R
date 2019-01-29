@@ -1,3 +1,10 @@
+#' buildQueryColumnMetadata
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param ... Other params
+#'
+#' @return query columns' metadata
+#' @export
 buildQueryColumnMetadata <- function(conn.info, ...){
   UseMethod("buildQueryColumnMetadata", conn.info)
 }
@@ -7,12 +14,13 @@ buildQueryColumnMetadata <- function(conn.info, ...){
 #' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param schema Table Schema
 #' @param table  Table Name
+#' @param ... Other params
 #'
 #' @return query columns' metadata
 #' @export
 buildQueryColumnMetadata.teradata <- function(conn.info,
                                               schema,
-                                              table){
+                                              table, ...){
 
   query <-  paste("SELECT DatabaseName as table_schema,",
                   "TableName as table_name,",
@@ -75,11 +83,12 @@ buildQueryColumnMetadata.sqlserver <- function(conn.info,
 #'
 #' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param table  Table Name
+#' @param ... Other params
 #'
 #' @return query columns' metadata
 #' @export
 buildQueryColumnMetadata.sqlite <- function(conn.info,
-                                            table){
+                                            table, ...){
 
   query <- paste("SELECT '' as table_schema,",
                  paste0( "'", table, "'"),

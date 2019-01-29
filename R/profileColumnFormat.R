@@ -24,7 +24,9 @@ profileColumnFormat <- function(conn.info,
                           show.percentage = 0.01){
 
   # Not getting column format stats for datetime columns
-  if( ! isDatetimeColumn(column.datatype) ){
+  if( isDatetimeColumn(column.datatype) ){
+    return(NA)
+  }
 
     # builds query
     query.format.freq <- buildQueryProfileColumnFormatFrequency(conn.info,
@@ -33,38 +35,37 @@ profileColumnFormat <- function(conn.info,
                                                                 column = column,
                                                                 query.filter = query.filter)
 
-    # only implemented in teradata database.
-    if ( ! is.na(query.format.freq)) {
-
-      # Connects to database
-      conn <- connectDB(conn.info)
-
-      format.freq <- odbc::dbGetQuery(conn, query.format.freq)
-      names(format.freq) <- c( "format", "freq")
-
-      closeConnection(conn)
-
-      # calculate percentages
-      format.freq$perc = format.freq$freq / count.total
-
-      # only shows values with percentage is greater then (or equal)
-      # show.percentage arg
-      others <- format.freq[format.freq$perc < show.percentage,]
-
-      if ( nrow(others) > 0 )
-        format.freq <- rbind(
-          format.freq[format.freq$perc >= show.percentage,],
-          dplyr::summarize(others, format = "others",
-                           freq = sum(freq),
-                           perc = sum(perc))
-          )
-
-      return(format.freq)
-
-    } else {
+    # not implemented in some databases.
+    if ( is.na(query.format.freq)) {
       return(NA)
     }
-  } else { # if( ! is.datetimeColumn(column.datatype) ){
-    return(NA)
-  }
+
+    # connects to database
+    conn <- connectDB(conn.info)
+
+    format.freq <- odbc::dbGetQuery(conn, query.format.freq)
+    names(format.freq) <- c( "format", "freq")
+
+    closeConnection(conn)
+
+    # calculate percentages
+    format.freq$perc = format.freq$freq / count.total
+
+    # only shows values with percentage is greater then (or equal)
+    # show.percentage arg
+    others <- format.freq[format.freq$perc < show.percentage,]
+
+    # excludes detailed rows from format.freq, and binds others
+    if ( nrow(others) > 0 ){
+      # group others in one row
+      others <- dplyr::summarise(others, format = "others",
+                                 freq = sum(freq),
+                                 perc = sum(perc))
+      # binds others to the data frame
+      format.freq <- rbind(
+        format.freq[format.freq$perc >= show.percentage,],
+        others
+      )
+    }
+    return(format.freq)
 }

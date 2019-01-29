@@ -9,7 +9,6 @@ test_that("runProfile.sqlserver", {
                         schema = "bcb",
                         table = "PES_TPE_TIPO_PESSOA",
                         is.parallel = FALSE)
-
   expect_equal("bcb", profile.sqlserver[[1]])
   expect_equal("PES_TPE_TIPO_PESSOA", profile.sqlserver[[2]])
   expect_equal(profile.sqlserver[[3]][[1]]$count.distinct, 6)

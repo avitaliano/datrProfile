@@ -1,3 +1,10 @@
+#' buildQueryColumnStats
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param ... Other parameters
+#'
+#' @return query count(distinct column) from table
+#' @export
 buildQueryColumnStats <- function(conn.info, ...){
   UseMethod("buildQueryColumnStats", conn.info)
 }

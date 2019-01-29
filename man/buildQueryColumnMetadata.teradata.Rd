@@ -4,7 +4,7 @@
 \alias{buildQueryColumnMetadata.teradata}
 \title{buildQueryColumnMetadata.teradata}
 \usage{
-\method{buildQueryColumnMetadata}{teradata}(conn.info, schema, table)
+\method{buildQueryColumnMetadata}{teradata}(conn.info, schema, table, ...)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
@@ -12,6 +12,8 @@
 \item{schema}{Table Schema}
 
 \item{table}{Table Name}
+
+\item{...}{Other params}
 }
 \value{
 query columns' metadata

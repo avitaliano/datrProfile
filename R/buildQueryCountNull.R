@@ -1,3 +1,10 @@
+#' buildQueryCountNull
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param ... Other parameters
+#'
+#' @return query select count(*) where collumn is null
+#' @export
 buildQueryCountNull <- function(conn.info, ...){
   UseMethod("buildQueryCountNull", conn.info)
 }

@@ -1,3 +1,10 @@
+#' buildQueryColumnFrequency
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param ... Other parameters
+#'
+#' @return query column, count(*) from table
+#' @export
 buildQueryColumnFrequency <- function(conn.info, ...){
   UseMethod("buildQueryColumnFrequency", conn.info)
 }

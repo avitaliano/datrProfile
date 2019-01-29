@@ -1,3 +1,10 @@
+#' buildQueryProfileColumnFormatFrequency
+#'
+#' @param conn.info Connection info created with \code{\link{prepareConnection}}
+#' @param ... Other parameters
+#'
+#' @return queries column format frequency from table
+#' @export
 buildQueryProfileColumnFormatFrequency <- function(conn.info, ...){
   UseMethod("buildQueryProfileColumnFormatFrequency", conn.info)
 }

@@ -62,11 +62,11 @@ profileColumnFormat <- function(conn.info,
 
     # excludes detailed rows from format.freq, and binds others
     if ( nrow(others) > 0 ){
-      # group others in one row
-      # others <- with(others, dplyr::summarize(format = "others",
-      #                                         freq = sum(freq),
-      #                                         perc = sum(perc)))
-      others <- dplyr::summarise(others, format = "others",
+
+      #https://stackoverflow.com/questions/8096313/no-visible-binding-for-global-variable-note-in-r-cmd-check
+      freq <- perc <- NULL
+      others <- dplyr::summarise(.data = others,
+                                 format = "others",
                                  freq = sum(freq),
                                  perc = sum(perc))
       # binds others to the data frame

@@ -10,13 +10,16 @@
 #' @param is.parallel Boolean that indicates if profile will run in parallel
 #' @param count.nodes Number of nodes used when is.parallel = TRUE
 #' @param query.filter Filter applied to the table, when profilling
+#' @param format.show.percentage Threshold considered when showing formats'
+#' percentages
 #'
 #' @return profile results for the table
 #' @export
 runProfile <- function(conn.info, schema = NULL, table,
                        is.parallel = TRUE,
                        count.nodes = 5,
-                       query.filter = NA){
+                       query.filter = NA,
+                       format.show.percentage = 0.03){
 
   print(paste0(Sys.time()," Started profile at table ", schema, ".", table))
 
@@ -71,7 +74,8 @@ runProfile <- function(conn.info, schema = NULL, table,
                                                column.datatype =
                                                  getColumnDatatype(x,
                                                                    columns.metadata),
-                                             query.filter = query.filter))
+                                             query.filter = query.filter,
+                                             format.show.percentage = format.show.percentage))
 
   snow::stopCluster(cluster)
   } else{
@@ -85,7 +89,8 @@ runProfile <- function(conn.info, schema = NULL, table,
                                       column.datatype =
                                         getColumnDatatype(x,
                                                           columns.metadata),
-                                      query.filter = query.filter))
+                                      query.filter = query.filter,
+                                      format.show.percentage = format.show.percentage))
   }
 
   profile$endtime = Sys.time()

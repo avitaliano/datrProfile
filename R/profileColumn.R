@@ -7,6 +7,8 @@
 #' @param column.datatype Column datatype
 #' @param query.filter Filter applied before profile the column
 #' @param limit.freq.values Distinct values shown in frequency data frame
+#' @param format.show.percentage Threshold considered when showing formats'
+#' percentages
 #'
 #' @return  columnProfile <- list(column, count.total,
 #' count.distinct, perc.distinct, count.null, perc.null,
@@ -18,7 +20,8 @@ profileColumn <- function(conn.info,
                           column,
                           column.datatype,
                           query.filter,
-                          limit.freq.values = 30){
+                          limit.freq.values = 30,
+                          format.show.percentage){
 
   print(paste(Sys.time(),"Started profile for column", column))
 
@@ -71,7 +74,8 @@ profileColumn <- function(conn.info,
                                      schema,
                                      table,
                                      count.total,
-                                     query.filter)
+                                     query.filter,
+                                     format.show.percentage)
 
   # closes connection
   closeConnection(conn)

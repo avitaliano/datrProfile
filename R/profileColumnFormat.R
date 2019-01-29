@@ -10,7 +10,7 @@
 #' @param table Table name
 #' @param count.total Number of rows to be profiled
 #' @param query.filter Filter applied to the table, when profilling
-#' @param show.percentage Threshold considered when showing formats'
+#' @param format.show.percentage Threshold considered when showing formats'
 #' percentages
 #'
 #' @return Data Frame containing columns' metadata
@@ -21,7 +21,7 @@ profileColumnFormat <- function(conn.info,
                           table,
                           count.total,
                           query.filter,
-                          show.percentage = 0.03){
+                          format.show.percentage){
 
   # Not getting column format stats for datetime columns
   if( isDatetimeColumn(column.datatype) ){
@@ -55,7 +55,10 @@ profileColumnFormat <- function(conn.info,
 
     # only shows values with percentage is greater then (or equal)
     # show.percentage arg
-    others <- format.freq[format.freq$perc < show.percentage,]
+    if(missing(format.show.percentage))
+      return(format.freq)
+
+    others <- format.freq[format.freq$perc < format.show.percentage,]
 
     # excludes detailed rows from format.freq, and binds others
     if ( nrow(others) > 0 ){
@@ -63,12 +66,12 @@ profileColumnFormat <- function(conn.info,
       # others <- with(others, dplyr::summarize(format = "others",
       #                                         freq = sum(freq),
       #                                         perc = sum(perc)))
-      others <- dplyr::summarise(others, format := "others",
+      others <- dplyr::summarise(others, format = "others",
                                  freq = sum(freq),
                                  perc = sum(perc))
       # binds others to the data frame
       format.freq <- rbind(
-        format.freq[format.freq$perc >= show.percentage,],
+        format.freq[format.freq$perc >= format.show.percentage,],
         others
       )
     }

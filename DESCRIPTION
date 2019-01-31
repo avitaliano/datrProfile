@@ -1,6 +1,6 @@
 Package: datrProfile
 Type: Package
-Title: Column profile for tables and datasets
+Title: Column Profile for Tables and Datasets
 Version: 0.1.0
 Authors@R: person("Arnaldo", "Vitaliano", email = "vitaliano@gmail.com",
   role = c("aut", "cre"))

@@ -17,7 +17,7 @@
 #' @export
 runProfile <- function(conn.info, schema = NULL, table,
                        is.parallel = TRUE,
-                       count.nodes = 5,
+                       count.nodes,
                        query.filter = NA,
                        format.show.percentage = 0.03){
 
@@ -35,11 +35,17 @@ runProfile <- function(conn.info, schema = NULL, table,
 
   # TODO: issue, parallel not working with sqlite. temporary disabled.
   if ( is.parallel && class(conn.info) != "sqlite" ){
+
     # initializes cluster
-    cluster <- snow::makeSOCKcluster(count.nodes)
+    if (missing(count.nodes)) {
+      #cluster <- parallel::makeSOCKcluster(parallel::detectCores())
+      cluster <- parallel::makePSOCKcluster(parallel::detectCores())
+    } else {
+      cluster <- parallel::makePSOCKcluster(count.nodes)
+    }
 
     # initializes loging
-    snow::clusterApply(cluster, seq_along(cluster), function(i) {
+    parallel::clusterApply(cluster, seq_along(cluster), function(i) {
       if (!dir.exists("log"))
         dir.create("log")
       zz <- file(file.path("log", sprintf("parallel-runProfile-%d.Rout", i)),
@@ -61,10 +67,10 @@ runProfile <- function(conn.info, schema = NULL, table,
                              "buildQueryColumnFrequency")
                              # TODO: observe if it's not necessary S3 exports,
 
-    snow::clusterExport(cluster, local.functions)
+    parallel::clusterExport(cluster, local.functions)
 
     # call profileColumn for each table's column
-    profile$columnProfile <- snow::parLapply(cluster,
+    profile$columnProfile <- parallel::parLapply(cluster,
                                              columns.metadata$column_name,
                                              function(x) profileColumn(
                                                conn.info = conn.info,
@@ -77,7 +83,7 @@ runProfile <- function(conn.info, schema = NULL, table,
                                              query.filter = query.filter,
                                              format.show.percentage = format.show.percentage))
 
-  snow::stopCluster(cluster)
+  parallel::stopCluster(cluster)
   } else{
     # call profileColumn for each table's column
     profile$columnProfile <- lapply(columns.metadata$column_name,

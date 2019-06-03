@@ -6,8 +6,8 @@
 about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
 distinct values, data patterns, data/format frequencies.}
 \usage{
-runProfile(conn.info, schema = NULL, table, is.parallel = TRUE,
-  count.nodes = 5, query.filter = NA, format.show.percentage = 0.03)
+runProfile(conn.info, schema = NULL, table, is.parallel = TRUE, count.nodes,
+  query.filter = NA, format.show.percentage = 0.03)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}

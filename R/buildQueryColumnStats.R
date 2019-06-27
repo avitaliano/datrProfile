@@ -4,7 +4,6 @@
 #' @param ... Other parameters
 #'
 #' @return query count(distinct column) from table
-#' @export
 buildQueryColumnStats <- function(conn.info, ...){
   UseMethod("buildQueryColumnStats", conn.info)
 }
@@ -19,7 +18,6 @@ buildQueryColumnStats <- function(conn.info, ...){
 #' @param ... Other parameters
 #'
 #' @return query count(distinct column) from table
-#' @export
 buildQueryColumnStats.sqlite <- function(conn.info,
                                          schema,
                                          table,
@@ -53,7 +51,7 @@ buildQueryColumnStats.sqlite <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return query count(distinct column) from table
-#' @export
+#' @noRd
 buildQueryColumnStats.sqlserver <- function(conn.info,
                                             schema,
                                             table,
@@ -89,7 +87,7 @@ buildQueryColumnStats.sqlserver <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return query count(distinct column) from table
-#' @export
+#' @noRd
 buildQueryColumnStats.teradata <- function(conn.info,
                                            schema,
                                            table,

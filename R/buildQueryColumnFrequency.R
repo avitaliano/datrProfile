@@ -4,7 +4,6 @@
 #' @param ... Other parameters
 #'
 #' @return query column, count(*) from table
-#' @export
 buildQueryColumnFrequency <- function(conn.info, ...){
   UseMethod("buildQueryColumnFrequency", conn.info)
 }
@@ -20,7 +19,7 @@ buildQueryColumnFrequency <- function(conn.info, ...){
 #' @param ... Other parameters
 #'
 #' @return query column, count(*) from table
-#' @export
+#' @noRd
 buildQueryColumnFrequency.sqlite <- function(conn.info,
                                              schema,
                                              table,
@@ -60,7 +59,7 @@ buildQueryColumnFrequency.sqlite <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return query column, count(*) from table
-#' @export
+#' @noRd
 buildQueryColumnFrequency.sqlserver <- function(conn.info,
                                                 schema,
                                                 table,
@@ -98,7 +97,7 @@ buildQueryColumnFrequency.sqlserver <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return query column, count(*) from table
-#' @export
+#' @noRd
 buildQueryColumnFrequency.teradata <- function(conn.info,
                                                schema,
                                                table,

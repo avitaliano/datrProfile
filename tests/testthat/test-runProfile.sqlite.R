@@ -12,10 +12,7 @@ test_that("runProfile.sqlite", {
   odbc::dbWriteTable(conn, "mtcars", mtcars)
   closeConnection(conn)
   profile = runProfile(conn.info, table = "mtcars")
-  profile$columnProfile[[1]]$min.value
-
-  max(mtcars$mpg)
-
   expect_equal(profile$columnProfile[[1]]$min.value, min(mtcars$mpg))
-  expect_equal(profile$columnProfile[[1]]$max.value, max(mtcars$mpg))
+  expect_equal(profile$columnProfile[[2]]$max.value, max(mtcars$cyl))
+  expect_equal(profile$columnProfile[[3]]$count.distinct, length(unique(mtcars$disp)))
 })

@@ -1,10 +1,11 @@
 #' buildQueryCountTotal
+#' 
+#' Count total rows from table.
 #'
 #' @param conn.info Connection info created with \code{\link{prepareConnection}}
 #' @param ... Other params
 #'
 #' @return query count(*) from table
-#' @export
 buildQueryCountTotal <- function(conn.info, ...){
   UseMethod("buildQueryCountTotal", conn.info)
 }
@@ -18,7 +19,7 @@ buildQueryCountTotal <- function(conn.info, ...){
 #' @param ... Other parameters
 #'
 #' @return query count(*) from table
-#' @export
+#' @noRd
 buildQueryCountTotal.sqlite <- function(conn.info,
                                         schema,
                                         table,
@@ -41,7 +42,7 @@ buildQueryCountTotal.sqlite <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return query count(*) from table
-#' @export
+#' @noRd
 buildQueryCountTotal.sqlserver <- function(conn.info, schema,
                                            table, query.filter, ...){
 
@@ -66,7 +67,7 @@ buildQueryCountTotal.sqlserver <- function(conn.info, schema,
 #' @param ... Other parameters
 #'
 #' @return query count(*) from table
-#' @export
+#' @noRd
 buildQueryCountTotal.teradata <- function(conn.info,
                                           schema,
                                           table,

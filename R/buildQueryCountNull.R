@@ -4,7 +4,6 @@
 #' @param ... Other parameters
 #'
 #' @return query select count(*) where collumn is null
-#' @export
 buildQueryCountNull <- function(conn.info, ...){
   UseMethod("buildQueryCountNull", conn.info)
 }
@@ -19,7 +18,7 @@ buildQueryCountNull <- function(conn.info, ...){
 #' @param ... Other parameters
 #'
 #' @return query select count(*) where collumn is null
-#' @export
+#' @noRd
 buildQueryCountNull.sqlite <- function(conn.info, schema, table,
                                        column, query.filter,  ...){
 
@@ -44,7 +43,7 @@ buildQueryCountNull.sqlite <- function(conn.info, schema, table,
 #' @param ... Other parameters
 #'
 #' @return query select count(*) where collumn is null
-#' @export
+#' @noRd
 buildQueryCountNull.teradata <- function(conn.info,
                                          schema,
                                          table,
@@ -76,7 +75,7 @@ buildQueryCountNull.teradata <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return query select count(*) where collumn is null
-#' @export
+#' @noRd
 buildQueryCountNull.sqlserver <- function(conn.info, schema, table,
                                           column, query.filter, ...){
 

@@ -4,8 +4,8 @@
 \alias{profileColumn}
 \title{profileColumn}
 \usage{
-profileColumn(conn.info, schema, table, column, column.datatype, query.filter,
-  limit.freq.values = 30, format.show.percentage)
+profileColumn(conn.info, schema, table, column, column.datatype,
+  query.filter, limit.freq.values = 30, format.show.percentage)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}

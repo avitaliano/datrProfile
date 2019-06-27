@@ -4,9 +4,9 @@
 \alias{prepareConnection}
 \title{Prepares connection to RDBS via ODBC}
 \usage{
-prepareConnection(db.vendor, odbc.driver = odbc::odbc(), db.host = NULL,
-  db.name = NULL, db.encoding = "", dsn = NULL, user = NULL,
-  passwd = NULL)
+prepareConnection(db.vendor, odbc.driver = odbc::odbc(),
+  db.host = NULL, db.name = NULL, db.encoding = "", dsn = NULL,
+  user = NULL, passwd = NULL)
 }
 \arguments{
 \item{db.vendor}{Database vendor (teradata, sqlserver)}

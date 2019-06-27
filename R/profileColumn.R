@@ -13,7 +13,6 @@
 #' @return  columnProfile <- list(column, count.total,
 #' count.distinct, perc.distinct, count.null, perc.null,
 #' min.value, max.value, column.freq, format.freq = format.freq)
-#' @export
 profileColumn <- function(conn.info,
                           schema,
                           table,

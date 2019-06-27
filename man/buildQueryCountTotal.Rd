@@ -15,5 +15,5 @@ buildQueryCountTotal(conn.info, ...)
 query count(*) from table
 }
 \description{
-buildQueryCountTotal
+Count total rows from table.
 }

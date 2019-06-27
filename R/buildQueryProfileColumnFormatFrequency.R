@@ -4,7 +4,6 @@
 #' @param ... Other parameters
 #'
 #' @return queries column format frequency from table
-#' @export
 buildQueryProfileColumnFormatFrequency <- function(conn.info, ...){
   UseMethod("buildQueryProfileColumnFormatFrequency", conn.info)
 }
@@ -20,7 +19,7 @@ buildQueryProfileColumnFormatFrequency <- function(conn.info, ...){
 #' @param ... Other parameters
 #'
 #' @return queries column format frequency from table
-#' @export
+#' @noRd
 buildQueryProfileColumnFormatFrequency.sqlite <- function(conn.info,
                                                           schema,
                                                           table,
@@ -41,7 +40,7 @@ buildQueryProfileColumnFormatFrequency.sqlite <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return queries column format frequency from table
-#' @export
+#' @noRd
 buildQueryProfileColumnFormatFrequency.teradata <- function(conn.info,
                                                             schema,
                                                             table,
@@ -95,7 +94,7 @@ buildQueryProfileColumnFormatFrequency.teradata <- function(conn.info,
 #' @param ... Other parameters
 #'
 #' @return queries column format frequency from table
-#' @export
+#' @noRd
 buildQueryProfileColumnFormatFrequency.sqlserver <- function(conn.info,
                                                              schema,
                                                              table,

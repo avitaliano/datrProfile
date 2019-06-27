@@ -2,22 +2,32 @@ library(datrProfile)
 context("Run Profile SqlServer")
 
 test_that("runProfile.sqlserver", {
-  conn.sqlserver <- prepareConnection(db.vendor = "sqlserver",
-                            dsn = "SQLDPTPROD_BCBASE_DP",
+  conn.info <- prepareConnection(db.vendor = "sqlserver",
+                            dsn = "SQLSERVER_DSN",
                             db.encoding = "latin1")
-  #  profile.sqlserver <- runProfile(conn.sqlserver,
-  #                        schema = "bcb",
-  #                        table = "GEO_MUN_MUNICIPIO",
-  #                        is.parallel = FALSE,
-  #                        format.show.percentage = 0.03)
-  #
-  #
-  # profile.sqlserver$columnProfile[[4]]
-  # expect_equal("bcb", profile.sqlserver[[1]])
-  # expect_equal("PES_TPE_TIPO_PESSOA", profile.sqlserver[[2]])
-  # expect_equal(profile.sqlserver[[3]][[1]]$count.distinct, 6)
-  # expect_equal(profile.sqlserver[[3]][[1]]$perc.distinct, 1)
-  # expect_equal(profile.sqlserver[[3]][[1]]$count.null, 0)
-  # expect_equal(profile.sqlserver[[3]][[1]]$min.value, 1)
-  # expect_equal(profile.sqlserver[[3]][[1]]$max.value, 6)
+
+  # conn <- DBI::dbConnect(odbc::odbc(),
+  #                        Driver   = "Sql Server",
+  #                        Server   = "HOST",
+  #                        Database = "MY_DB",
+  #                        Port     = 1433)
+  # 
+  # table <- DBI::Id(catalog = "MY_DB", schema = "dbo", table = "mtcars")
+  # unquoted <- DBI::dbUnquoteIdentifier(DBI::ANSI(), table)
+  # quoted <- DBI::dbQuoteIdentifier(DBI::ANSI(), table)
+  # unquoted
+  # quoted
+  # 
+  # DBI::dbWriteTable(conn, name = table, mtcars)
+  # DBI::dbWriteTable(conn, name = unquoted, mtcars)
+  # DBI::dbWriteTable(conn, name = quoted, mtcars)
+  # odbc::dbWriteTable(conn, name = "MTCARS", mtcars)
+  # conn <- closeConnection(conn)
+  # profile = runProfile(conn.info, table = "MTCARS",
+  #                      schema=schema,
+  #                      is.parallel = FALSE)
+  # expect_equal(profile$columnProfile[[1]]$min.value, min(mtcars$mpg))
+  # expect_equal(profile$columnProfile[[2]]$max.value, max(mtcars$cyl))
+  # expect_equal(profile$columnProfile[[3]]$count.distinct, length(unique(mtcars$disp)))
 })
+

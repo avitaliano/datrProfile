@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.R
 \name{summary.profile}
 \alias{summary.profile}
-\title{Shows a summary of the data profile}
+\title{Override summary function}
 \usage{
 \method{summary}{profile}(object, ...)
 }
@@ -15,5 +15,5 @@
 data.frame with summary information
 }
 \description{
-Shows a summary of the data profile
+Override summary function
 }

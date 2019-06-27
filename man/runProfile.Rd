@@ -2,12 +2,10 @@
 % Please edit documentation in R/runProfile.R
 \name{runProfile}
 \alias{runProfile}
-\title{Profiles datasets (collecting statistics and informative summaries
-about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
-distinct values, data patterns, data/format frequencies.}
+\title{Profile all columns from ODBC table or dataframe}
 \usage{
-runProfile(conn.info, schema = NULL, table, is.parallel = TRUE, count.nodes,
-  query.filter = NA, format.show.percentage = 0.03)
+runProfile(conn.info, schema = NULL, table, is.parallel = TRUE,
+  count.nodes, query.filter = NA, format.show.percentage = 0.03)
 }
 \arguments{
 \item{conn.info}{Connection info created with \code{\link{prepareConnection}}}
@@ -16,20 +14,18 @@ runProfile(conn.info, schema = NULL, table, is.parallel = TRUE, count.nodes,
 
 \item{table}{Table name}
 
-\item{is.parallel}{Boolean that indicates if profile will run in parallel}
+\item{is.parallel}{Boolean that indicates if profile will run in parallel. Default TRUE.}
 
 \item{count.nodes}{Number of nodes used when is.parallel = TRUE}
 
 \item{query.filter}{Filter applied to the table, when profilling}
 
-\item{format.show.percentage}{Threshold considered when showing formats'
-percentages}
+\item{format.show.percentage}{Threshold considered when showing formats percentages}
 }
 \value{
-profile results for the table
+profile results for the table/dataframe
 }
 \description{
-Profiles datasets (collecting statistics and informative summaries
-about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
-distinct values, data patterns, data/format frequencies.
+Profiles tables and dataframes (collecting statistics and informative summaries
+about that data): max, min, avg, sd, nulls, distinct values, data patterns, data/format frequencies.
 }

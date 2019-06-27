@@ -4,7 +4,6 @@
 #' @param ... Other params
 #'
 #' @return query columns' metadata
-#' @export
 buildQueryColumnMetadata <- function(conn.info, ...){
   UseMethod("buildQueryColumnMetadata", conn.info)
 }
@@ -17,7 +16,7 @@ buildQueryColumnMetadata <- function(conn.info, ...){
 #' @param ... Other params
 #'
 #' @return query columns' metadata
-#' @export
+#' @noRd
 buildQueryColumnMetadata.teradata <- function(conn.info,
                                               schema,
                                               table, ...){
@@ -54,7 +53,7 @@ buildQueryColumnMetadata.teradata <- function(conn.info,
 #' @param ... Other params
 #'
 #' @return query columns' metadata
-#' @export
+#' @noRd
 buildQueryColumnMetadata.sqlserver <- function(conn.info,
                                                schema,
                                                table,
@@ -86,7 +85,7 @@ buildQueryColumnMetadata.sqlserver <- function(conn.info,
 #' @param ... Other params
 #'
 #' @return query columns' metadata
-#' @export
+#' @noRd
 buildQueryColumnMetadata.sqlite <- function(conn.info,
                                             table, ...){
 

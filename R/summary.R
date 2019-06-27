@@ -1,6 +1,4 @@
-#print.profile
-
-#' Shows a summary of the data profile
+#' Override summary function
 #'
 #' @param object Profile object
 #' @param ... other parameters

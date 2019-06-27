@@ -17,4 +17,4 @@ Imports:
     odbc,
     dplyr,
     RSQLite
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

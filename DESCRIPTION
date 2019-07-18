@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: person("Arnaldo", "Vitaliano", email = "vitaliano@gmail.com",
   role = c("aut", "cre"))
 Description: Profiles datasets (collecting statistics and informative summaries 
-    about that data) on data frames and ODBC tables: max, min, avg, sd, nulls,
+    about that data) on data frames and ODBC tables: maximum, minimum, mean, standart deviation, nulls,
     distinct values, data patterns, data/format frequencies.
 License: GPL-3 | file LICENSE
 URL: https://github.com/avitaliano/datrProfile

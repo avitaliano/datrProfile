@@ -44,9 +44,8 @@ runProfile <- function(conn.info, schema = NULL, table,
 
     # initializes loging
     parallel::clusterApply(cluster, seq_along(cluster), function(i) {
-      if (!dir.exists("log"))
-        dir.create("log")
-      zz <- file(file.path("log", sprintf("parallel-runProfile-%d.Rout", i)),
+      tmpdir <- tempdir()
+      zz <- file(file.path(tmpdir, sprintf("parallel-runProfile-%d.Rout", i)),
                  open = "wt")
       sink(zz)
       sink(zz, type = "message")
